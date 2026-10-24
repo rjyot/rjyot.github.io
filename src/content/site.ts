@@ -150,8 +150,8 @@ export const site = {
   who: "Software Engineering student, Queen's University Belfast",
   location: "Belfast, Northern Ireland",
   availability: "Summer 2027 internships from July 2027, UK and Ireland",
-  /** Neutral. The job title stays off the page. */
-  citiLine: "Citi. TODO(Ryan): what to say about this placement.",
+  /** Neutral role line. No job title, and do not say production. */
+  citiLine: "Software engineering placement, Citi",
   proof: brewstigeConfig.showRealWorldImpact
     ? "Brewstige, Hack Belfast runner-up for Best Real World Impact."
     : "Brewstige, from a 36-hour hackathon.",
@@ -168,11 +168,11 @@ export const site = {
    */
   origin: "https://rjyot.github.io",
   /**
-   * CV PDF is not in the repo. Leave null until a real file path exists.
-   * Until then the hero link keeps `cvNote` and goes to the contact section.
+   * Ryan has two CVs and has not picked one. Do not link a PDF.
+   * The public page is /cv/.
    */
   cvHref: null as string | null,
-  cvNote: "TODO(Ryan)",
+  cvNote: "TODO(Ryan): which CV to publish",
   /**
    * Email is not on the public profile. Leave null until a real address exists.
    * Until then the hero link keeps `emailNote` and goes to the contact section.
@@ -301,8 +301,8 @@ export const site = {
       id: "citi",
       kind: "work",
       org: "Citi",
-      /** Neutral until Ryan writes it. Do not say production or regulated. */
-      title: null,
+      /** Role line only. Do not say production or Technology Placement Analyst. */
+      title: "Software engineering placement",
       dates: "PLACEHOLDER: start and end dates",
       location: "PLACEHOLDER: office location",
       // Do not guess the work or a job title.

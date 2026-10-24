@@ -57,6 +57,7 @@ const alwaysForbidden = [
   /\bMEng\b/,
   /\bBEng\b/,
   /\b2029\b/,
+  /Technology Placement Analyst/,
 ];
 
 const bannerForbidden = [

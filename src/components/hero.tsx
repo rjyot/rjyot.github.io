@@ -20,7 +20,7 @@ export function Hero() {
         <p className="hero-headline mt-4 max-w-[18ch] text-2xl font-semibold leading-snug text-paper lg:text-3xl">
           {site.tagline}
         </p>
-        <p className="mt-4 max-w-xl text-lg text-amber">{published(site.citiLine)}</p>
+        <p className="mt-4 max-w-xl text-lg text-paper">{site.citiLine}</p>
         <p className="mt-2 max-w-xl text-lg">
           <a href="/work/brewstige/" className="font-semibold text-blue-bright underline underline-offset-4">
             {site.proof}
@@ -31,11 +31,8 @@ export function Hero() {
         ) : null}
         <p className="mt-3 max-w-xl text-lg text-paper">{site.availability}.</p>
         <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-lg">
-          <a
-            href={site.cvHref ?? "/#contact"}
-            className="font-semibold text-blue-bright underline underline-offset-4"
-          >
-            {site.cvHref ? "CV PDF" : published(`CV PDF · ${site.cvNote}`)}
+          <a href="/cv/" className="font-semibold text-blue-bright underline underline-offset-4">
+            CV
           </a>
           <a href={site.github} className="font-semibold text-blue-bright underline underline-offset-4">
             GitHub

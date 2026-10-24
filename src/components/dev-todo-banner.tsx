@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const items = [
   { text: "TODO(Ryan): what to say about this placement.", file: "src/content/site.ts" },
-  { text: "CV PDF · TODO(Ryan)", file: "src/content/site.ts" },
+  { text: "TODO(Ryan): which CV to publish", file: "src/content/site.ts" },
   { text: "Email · TODO(Ryan)", file: "src/content/site.ts" },
   { text: "TODO(Ryan): a real photo.", file: "src/components/about.tsx" },
   { text: "TODO(Ryan): app screenshot", file: "src/content/site.ts" },
@@ -50,7 +50,7 @@ function DevTodoBannerPanel() {
   return (
     <aside
       data-dev-banner
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-amber bg-ink px-4 py-3 text-base text-amber"
+      className="dev-todo-banner fixed inset-x-0 bottom-0 z-50 border-t border-amber bg-ink px-4 py-3 text-base text-amber"
     >
       <div className="mx-auto flex max-w-6xl flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
         <p className="font-semibold text-paper">{bannerHeading(count)}</p>

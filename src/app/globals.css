@@ -419,3 +419,97 @@ html[data-motion="off"] ::view-transition-new(*) {
   transition-duration: 0.01ms !important;
   scroll-behavior: auto !important;
 }
+
+.cv-sheet {
+  background: #fff;
+  color: #000;
+  min-height: 297mm;
+  padding: 16mm 16mm 14mm;
+  font-size: 12pt;
+  line-height: 1.45;
+}
+
+.cv-sheet h1 {
+  font-size: 28pt;
+  line-height: 1.05;
+  color: #000;
+}
+
+.cv-sheet h2 {
+  margin-top: 1.1rem;
+  font-size: 14pt;
+  line-height: 1.2;
+  color: #000;
+}
+
+.cv-sheet p {
+  margin-top: 0.35rem;
+  color: #000;
+}
+
+.cv-sheet a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.cv-study,
+.cv-contact {
+  margin-top: 1.25rem;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    color-scheme: light;
+  }
+
+  body > header,
+  body > footer,
+  .dev-todo-banner,
+  .no-print,
+  .cursor-ring,
+  .cursor-dot,
+  canvas,
+  script {
+    display: none !important;
+  }
+
+  main {
+    background: #fff !important;
+    padding: 0 !important;
+  }
+
+  .cv-sheet {
+    width: auto;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  *,
+  *::before,
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+    caret-color: transparent !important;
+  }
+
+  html,
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: auto !important;
+  }
+}

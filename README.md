@@ -32,7 +32,7 @@ Search for `PLACEHOLDER` and `TODO(Ryan)`. Replace those strings with real copy.
 
 Facts already filled in come from the public GitHub profile. The only GitHub URL on the site is [github.com/rjyot](https://github.com/rjyot). Other repositories are private, so project pages do not link to them. Brewstige is the Expo / React Native café app. LeetCode patterns and the Arabic word of the day live in [`src/content/learning.ts`](src/content/learning.ts).
 
-To publish an email, set `email` in `site.ts` to the address. Until then the hero and contact section show `TODO(Ryan)` and do not invent a mailto link. Set `cvHref` to a real PDF path before the CV link goes live.
+To publish an email, set `email` in `site.ts` to the address. Until then the hero and contact section show `TODO(Ryan)` and do not invent a mailto link. The hero CV link goes to `/cv/`. Do not point it at a PDF until Ryan picks which CV is public.
 
 The About section shows two photographs of Belfast, credited in [`src/content/photos.ts`](src/content/photos.ts). The skyline is Thomas Nugent, CC BY-SA 2.0, via Geograph. The Lanyon Building is Man vyi, public domain, via Wikimedia Commons. There is no photo of Ryan and no Brewstige screenshot. Those slots stay as `TODO(Ryan): a real photo` and `TODO(Ryan): app screenshot`. Do not drop in café stock, generated art, or the Expo template icon.
 
