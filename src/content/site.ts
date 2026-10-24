@@ -73,6 +73,33 @@ export type Fact = {
   hint: string;
 };
 
+/**
+ * Café-owner count, letter of interest, and paying client stay off the page
+ * until Ryan sets this to true.
+ */
+export const brewstigeConfig: { showCafeClaims: boolean } = {
+  showCafeClaims: false,
+};
+
+const brewstigeCafeClaims =
+  "During the same 36 hours I talked to 13 Belfast café owners and came away with a letter of interest and a paying client.";
+
+const brewstigeWork =
+  "Since then I've worked on getting the mobile app release-ready. I fixed the Android camera permission so QR scanning works (KAN-23), brought the app onto its Expo SDK 57 baseline with a single required CI check, and got expo-doctor passing. I also removed the old web MVP, tightened Supabase permissions to least privilege, stopped featured stickers leaking between accounts on a shared phone, hid Apple sign-in until it's set up, and wrote the café go-live content standard.";
+
+function brewstigeContribution() {
+  const lead = "I co-founded Brewstige and led the frontend at HackBelfast 2026.";
+  if (!brewstigeConfig.showCafeClaims) return `${lead} ${brewstigeWork}`;
+  return `${lead} ${brewstigeCafeClaims} ${brewstigeWork}`;
+}
+
+function brewstigeContributionNote() {
+  const camera =
+    "TODO(Ryan): confirm the wording, and whether the camera fix is tested on a real Android phone.";
+  if (brewstigeConfig.showCafeClaims) return camera;
+  return `TODO(Ryan): the café-owner count, letter of interest, and paying client are not confirmed. ${camera}`;
+}
+
 export type ContactLink = {
   id: string;
   label: string;
@@ -139,8 +166,8 @@ export const site = {
   about: [
     "The space between an idea and a usable product is where I like to work.",
     "I'm Ryan, a Software Engineering student at Queen's University Belfast.",
-    "I built Brewstige, a loyalty app for small cafés that points you to quieter ones.",
-    "Outside code, I lift, play football and volleyball, and learn Arabic.",
+    "I co-built Brewstige, a loyalty app for small cafés that points you to quieter ones.",
+    "Outside code, I lift, play football, and learn Arabic.",
     "I'm after a software engineering internship from July 2027.",
   ],
   /** 27-word About, used as the meta description. */
@@ -212,10 +239,8 @@ export const site = {
       slug: "brewstige",
       name: "Brewstige",
       summary: "A loyalty app for small cafés that points you to quieter ones.",
-      contribution:
-        "I co-founded Brewstige and led the frontend at HackBelfast 2026. During the same 36 hours I talked to 13 Belfast café owners and came away with a letter of interest and a paying client. Since then I've worked on getting the mobile app release-ready. I fixed the Android camera permission so QR scanning works (KAN-23), brought the app onto its Expo SDK 57 baseline with a single required CI check, and got expo-doctor passing. I also removed the old web MVP, tightened Supabase permissions to least privilege, stopped featured stickers leaking between accounts on a shared phone, hid Apple sign-in until it's set up, and wrote the café go-live content standard.",
-      contributionNote:
-        "TODO(Ryan): confirm the wording, and whether the camera fix is tested on a real Android phone.",
+      contribution: brewstigeContribution(),
+      contributionNote: brewstigeContributionNote(),
       context:
         "Built by a team of three. Hack Belfast, a 24-hour hackathon. Runner-up for Best Real World Impact.",
       stack: ["Expo", "React Native"],
