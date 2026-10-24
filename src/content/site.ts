@@ -33,7 +33,8 @@ export type TimelineItem = {
   id: string;
   kind: "work" | "education";
   org: string;
-  title: string;
+  /** Job title. Null when the title is unconfirmed and must stay off the page. */
+  title: string | null;
   dates: string;
   location: string;
   summary: string;
@@ -103,8 +104,6 @@ export const site = {
   study: "Software Engineering, Queen's University Belfast (2024–present).",
   location: "Belfast, Northern Ireland",
   availability: "Summer 2027 internships, from July 2027",
-  /** Neutral until the placement framing is confirmed. Do not invent a title or a start date. */
-  citiLine: "TODO(Ryan): a neutral line for the Citi placement.",
   github: "https://github.com/rjyot",
   githubHandle: "rjyot",
   /**
@@ -129,30 +128,65 @@ export const site = {
     "A lot of that starts at hackathons, including Hack Belfast.",
     "Off the screen I lift, play football and volleyball, and learn Arabic.",
   ],
+  /**
+   * Stats strip. Only sourced lines belong here.
+   * Off the strip until Ryan confirms them: Brewstige team size, a 75 kg goal,
+   * a GitHub streak length, a Citi job title, and "lives in Belfast".
+   */
   facts: [
     {
-      id: "shipped",
-      label: "Shipped",
-      value: "Brewstige",
-      hint: "Loyalty app for small cafés",
-    },
-    {
-      id: "hack",
-      label: "Hack Belfast",
-      value: "Runner-up",
-      hint: "Best Real World Impact",
+      id: "study",
+      label: "Study",
+      value: "Software Engineering",
+      hint: "Queen's University Belfast",
     },
     {
       id: "open",
-      label: "Open to",
-      value: "July 2027",
-      hint: "from July 2027, UK and Ireland",
+      label: "Seeking",
+      value: "Summer 2027",
+      hint: "Internships in the UK and Ireland",
     },
     {
-      id: "belfast",
-      label: "Based in",
-      value: "Belfast",
-      hint: "Northern Ireland",
+      id: "github-goal",
+      label: "GitHub goal",
+      value: "Every day",
+      hint: "A contribution a day until 31 Dec 2026",
+    },
+    {
+      id: "session",
+      label: "One session",
+      value: "5,190 kg",
+      hint: "57 min, 20 Oct 2026",
+    },
+    {
+      id: "gym",
+      label: "Gym",
+      value: "3 days a week",
+      hint: "Tue, Thu, Sun",
+    },
+    {
+      id: "football",
+      label: "Football",
+      value: "Twice a week",
+      hint: "Mon, Wed",
+    },
+    {
+      id: "arabic",
+      label: "Arabic",
+      value: "5 minutes a day",
+      hint: "Anki",
+    },
+    {
+      id: "agents",
+      label: "Second brain",
+      value: "4 agents",
+      hint: "Extractor, Librarian, Recall, Follow-Up",
+    },
+    {
+      id: "reels",
+      label: "Reels filed",
+      value: "About 30",
+      hint: "Notion library, since early Oct 2026",
     },
   ] satisfies Fact[],
   projects: [
@@ -196,10 +230,10 @@ export const site = {
       id: "citi",
       kind: "work",
       org: "Citi",
-      title: "TODO(Ryan): role title",
+      title: null,
       dates: "PLACEHOLDER: start and end dates",
       location: "PLACEHOLDER: office location",
-      summary: "TODO(Ryan): a neutral line for this role. Do not guess the work.",
+      summary: "TODO(Ryan): what to say about this placement. Do not guess the work or a job title.",
       href: "https://www.citi.com",
     },
     {
@@ -218,7 +252,7 @@ export const site = {
       id: "hack-belfast",
       event: "Hack Belfast",
       result: "Runner-up, Best Real World Impact",
-      detail: "24-hour hackathon. The project was Brewstige. Team size: TODO(Ryan).",
+      detail: "24-hour hackathon. The project was Brewstige.",
       when: "PLACEHOLDER: year",
     },
     {
@@ -245,14 +279,14 @@ export const site = {
     {
       id: "gym",
       title: "Gym",
-      status: "PLACEHOLDER: what you're training",
-      detail: "PLACEHOLDER: one short line. No invented numbers.",
+      status: "5,190 kg in one session, 57 minutes, 20 Oct 2026.",
+      detail: "Three days a week: Tue, Thu, and Sun.",
     },
     {
-      id: "streak",
-      title: "GitHub streak",
-      status: "PLACEHOLDER: current streak in days",
-      detail: "A daily commit streak. The count changes, so it is not hardcoded here.",
+      id: "github-goal",
+      title: "GitHub",
+      status: "A contribution every day until 31 Dec 2026.",
+      detail: "A goal, not a streak count.",
     },
   ] satisfies NowItem[],
   contact: [
@@ -278,6 +312,12 @@ export const site = {
   contactNote:
     "Hiring for summer 2027 internships from July 2027, in the UK or Ireland? LinkedIn, Instagram, or GitHub.",
 };
+
+/**
+ * Current GitHub streak. Leave null unless a live read of rjyot's contribution
+ * data sets `days` and `asOf`. Do not type a number in by hand.
+ */
+export const githubStreak: { days: number; asOf: string } | null = null;
 
 export const nav = [
   { id: "about", label: "About" },

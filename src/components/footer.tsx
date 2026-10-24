@@ -6,7 +6,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <p className="font-display text-2xl font-extrabold">Ryan Jyothis</p>
         <p className="max-w-md text-lg text-muted">
-          Belfast. The public GitHub link is the{" "}
+          The public GitHub link is the{" "}
           <a href={site.github} className="text-blue-bright underline underline-offset-4">
             rjyot profile
           </a>

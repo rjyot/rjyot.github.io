@@ -27,15 +27,15 @@ export function About() {
         </div>
       </div>
 
-      <dl className="mx-auto mt-14 grid max-w-6xl gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mx-auto mt-14 grid max-w-6xl gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
         {site.facts.map((fact) => (
           <div key={fact.id} className="bg-panel px-5 py-6">
             <dt className="text-lg text-muted">{fact.label}</dt>
             <dd
               className={
                 fact.value.startsWith("TODO")
-                  ? "mt-2 font-display text-4xl font-extrabold tracking-tight text-amber md:text-5xl"
-                  : "mt-2 font-display text-4xl font-extrabold tracking-tight text-paper md:text-5xl"
+                  ? "mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-amber md:text-4xl"
+                  : "mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-paper md:text-4xl"
               }
             >
               {fact.value}

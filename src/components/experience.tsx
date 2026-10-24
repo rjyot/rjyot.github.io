@@ -26,9 +26,11 @@ export function Experience() {
                       item.org
                     )}
                   </h3>
-                  <p className={item.title.includes("TODO(Ryan)") ? "mt-2 text-amber" : "mt-2 text-paper"}>
-                    {item.title}
-                  </p>
+                  {item.title ? (
+                    <p className={item.title.includes("TODO(Ryan)") ? "mt-2 text-amber" : "mt-2 text-paper"}>
+                      {item.title}
+                    </p>
+                  ) : null}
                   <p className="mt-2 text-lg text-muted">
                     <TextValue value={item.dates} />
                     <span aria-hidden="true"> · </span>
