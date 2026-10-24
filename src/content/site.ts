@@ -166,7 +166,7 @@ export const site = {
   about: [
     "The space between an idea and a usable product is where I like to work.",
     "I'm Ryan, a Software Engineering student at Queen's University Belfast.",
-    "I co-built Brewstige, a loyalty app for small cafés that points you to quieter ones.",
+    "I co-founded Brewstige and led the frontend, a loyalty app for small cafés that points you to quieter ones.",
     "Outside code, I lift, play football, and learn Arabic.",
     "I'm after a software engineering internship from July 2027.",
   ],
@@ -242,7 +242,7 @@ export const site = {
       contribution: brewstigeContribution(),
       contributionNote: brewstigeContributionNote(),
       context:
-        "Built by a team of three. Hack Belfast, a 24-hour hackathon. Runner-up for Best Real World Impact.",
+        "With two collaborators. Hack Belfast, a 36-hour hackathon. Runner-up for Best Real World Impact.",
       stack: ["Expo", "React Native"],
       href: null,
       year: "PLACEHOLDER: year",
@@ -305,7 +305,7 @@ export const site = {
       id: "hack-belfast",
       event: "Hack Belfast",
       result: "Runner-up, Best Real World Impact",
-      detail: "24-hour hackathon. The project was Brewstige.",
+      detail: "36-hour hackathon. The project was Brewstige. TODO(Ryan): Hack Belfast team size.",
       when: "PLACEHOLDER: year",
     },
     {

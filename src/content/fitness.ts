@@ -19,7 +19,13 @@ export const fitness = {
     label: "Gym sessions in October",
     count: 4,
     volumeKg: 14811,
-    volumes: [3374, 2870, 5190, 3377],
+    volumeCaption: "Total kg moved in October",
+    sessions: [
+      { date: "2026-10-14", volumeKg: 3374 },
+      { date: "2026-10-16", volumeKg: 2870 },
+      { date: "2026-10-20", volumeKg: 5190 },
+      { date: "2026-10-23", volumeKg: 3377 },
+    ],
   },
   lifts: [
     {
@@ -27,14 +33,14 @@ export const fitness = {
       from: 50,
       to: 60,
       unit: "kg",
-      notes: ["+20% since 16 Oct", "Best weight, October"],
+      notes: ["+20% since 16 Oct"],
     },
     {
       name: "Pec deck",
       from: 52,
       to: 59,
       unit: "kg",
-      notes: [],
+      notes: ["Best weight, October"],
     },
   ],
 } as const;

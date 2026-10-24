@@ -2,7 +2,7 @@ import { fitness } from "@/content/fitness";
 
 export function FitnessPanel() {
   const { line, approach, updatedLabel, october, lifts } = fitness;
-  const peak = Math.max(...october.volumes);
+  const peak = Math.max(...october.sessions.map((session) => session.volumeKg));
   const showSessions = october.count > 0;
 
   return (
@@ -20,16 +20,25 @@ export function FitnessPanel() {
             <h4 className="text-lg font-semibold text-blue-bright">{october.label}</h4>
             <p className="mt-3 font-display text-5xl font-extrabold tracking-tight">{october.count}</p>
             <p className="mt-4 text-lg text-paper">
-              {october.volumeKg.toLocaleString("en-GB")} kg moved
+              {october.volumeKg.toLocaleString("en-GB")} kg. {october.volumeCaption}.
             </p>
             <ul className="mt-5 flex items-end gap-3" aria-label="Session volumes, in kilograms">
-              {october.volumes.map((kg) => (
-                <li key={kg} className="flex min-w-0 flex-1 flex-col justify-end">
+              {october.sessions.map((session) => (
+                <li key={session.date} className="flex min-w-0 flex-1 flex-col justify-end">
                   <span
                     className="block bg-blue"
-                    style={{ height: `${Math.round((kg / peak) * 96)}px` }}
+                    style={{ height: `${Math.round((session.volumeKg / peak) * 96)}px` }}
                   />
-                  <span className="mt-2 text-lg text-muted">{kg.toLocaleString("en-GB")}</span>
+                  <span className="mt-2 text-lg text-muted">
+                    {session.volumeKg.toLocaleString("en-GB")}
+                  </span>
+                  <time className="text-lg text-muted" dateTime={session.date}>
+                    {new Intl.DateTimeFormat("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      timeZone: "UTC",
+                    }).format(new Date(`${session.date}T00:00:00Z`))}
+                  </time>
                 </li>
               ))}
             </ul>
