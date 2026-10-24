@@ -101,6 +101,74 @@ html.has-cursor * {
   }
 }
 
+[data-magnetic] {
+  transition: transform 180ms ease-out;
+}
+
+.menu > summary {
+  list-style: none;
+}
+
+.menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.menu-panel {
+  display: none;
+}
+
+.menu[open] .menu-panel {
+  position: fixed;
+  z-index: 50;
+  inset: 4rem 0 0;
+  display: block;
+  overflow: auto;
+  background: #07111c;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+#scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@supports (animation-timeline: scroll()) {
+  #scroll-progress {
+    animation: scroll-progress linear;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes scroll-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.magnetic {
+  transition: transform 180ms ease-out;
+}
+
+.arabic-script {
+  font-family: var(--font-arabic-family), "Segoe UI", sans-serif;
+}
+
+.rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(1rem);
+  }
+  to {
+    transform: none;
+  }
+}
+
 .now-dot {
   display: inline-block;
   width: 0.7rem;

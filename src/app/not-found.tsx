@@ -1,6 +1,5 @@
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button-styles";
+import { cn } from "@/lib/utils";
 
 export default function NotFound() {
   return (
@@ -10,9 +9,9 @@ export default function NotFound() {
         That page is not here.
       </h1>
       <p className="mt-6 max-w-md">The link might be old. The work lives on the home page.</p>
-      <Button asChild size="lg" className="mt-8">
-        <Link href="/">Back home</Link>
-      </Button>
+      <a href="/" className={cn(buttonVariants({ size: "lg" }), "mt-8")}>
+        Back home
+      </a>
     </main>
   );
 }

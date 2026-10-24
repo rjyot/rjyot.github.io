@@ -7,7 +7,7 @@ export function Experience() {
   return (
     <section id="experience" className="bg-panel px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading index="04" title="Experience" lede="Work, the degree, and two hackathons." />
+        <SectionHeading index="04" title="Experience" lede="Work, Queen's, and two hackathons." />
 
         <ol className="relative space-y-10 border-l-2 border-blue pl-6 md:pl-10">
           {site.timeline.map((item) => (
@@ -26,7 +26,9 @@ export function Experience() {
                       item.org
                     )}
                   </h3>
-                  <p className="mt-2 text-paper">{item.title}</p>
+                  <p className={item.title.includes("TODO(Ryan)") ? "mt-2 text-amber" : "mt-2 text-paper"}>
+                    {item.title}
+                  </p>
                   <p className="mt-2 text-lg text-muted">
                     <TextValue value={item.dates} />
                     <span aria-hidden="true"> · </span>

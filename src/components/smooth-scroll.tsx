@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type Lenis from "lenis";
 
 import { useMotion } from "@/components/motion-provider";
+import { afterLoad } from "@/lib/after-load";
 
 const LenisContext = createContext<Lenis | null>(null);
 
@@ -24,8 +25,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     let destroyed = false;
     let instance: Lenis | null = null;
     let removeTicker: (() => void) | null = null;
+    let cancelWait = () => {};
 
-    (async () => {
+    cancelWait = afterLoad(() => {
+      void (async () => {
       const [{ default: LenisCtor }, { default: gsap }, { ScrollTrigger }] = await Promise.all([
         import("lenis"),
         import("gsap"),
@@ -51,10 +54,12 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       removeTicker = () => gsap.ticker.remove(tick);
       setLenis(instance);
       ScrollTrigger.refresh();
-    })();
+      })();
+    });
 
     return () => {
       destroyed = true;
+      cancelWait();
       removeTicker?.();
       instance?.destroy();
       setLenis(null);

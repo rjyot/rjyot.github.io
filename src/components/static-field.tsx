@@ -31,3 +31,17 @@ export function StaticField() {
     </svg>
   );
 }
+
+export function HeroCanvasSlot() {
+  return (
+    <div
+      data-hero-field
+      className="relative h-[30vh] border-t border-line bg-ink lg:h-auto lg:min-h-[100svh] lg:border-t-0 lg:border-l"
+      aria-hidden="true"
+    >
+      <div className="absolute inset-0">
+        <StaticField />
+      </div>
+    </div>
+  );
+}

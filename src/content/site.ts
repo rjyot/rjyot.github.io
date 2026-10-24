@@ -6,10 +6,13 @@
  *
  * Filled-in facts are from Ryan Jyothis's public GitHub profile README
  * (https://github.com/rjyot/rjyot), read 2026-10-24, and from the Brewstige
- * brief: an Expo / React Native café app at https://github.com/rjyot/brewstige.
+ * brief: an Expo / React Native café app.
  *
- * A public fetch of that Brewstige URL returned 404 on 2026-10-24. The link
- * stays because it is the stated repository. Confirm it before sharing widely.
+ * Repos other than the profile https://github.com/rjyot are private.
+ * Do not put a repository URL on a project page.
+ *
+ * Do not write a degree title (MEng, BEng) or a graduation year.
+ * Study line: Software Engineering, Queen's University Belfast (2024–present).
  */
 
 export type Project = {
@@ -18,6 +21,8 @@ export type Project = {
   summary: string;
   context: string;
   stack: string[];
+  /** Personal part in the work. Use a TODO(Ryan) string until it is confirmed. */
+  contribution: string | null;
   href: string | null;
   year: string;
   /** True when the card is an open slot, not a shipped project. */
@@ -56,10 +61,10 @@ export type NowItem = {
   detail: string;
 };
 
-export type Stat = {
+export type Fact = {
   id: string;
   label: string;
-  value: number;
+  value: string;
   hint: string;
 };
 
@@ -75,17 +80,31 @@ export function isPlaceholder(value: string | null | undefined): boolean {
   return value.trim().toUpperCase().startsWith("PLACEHOLDER");
 }
 
+/** Profile URL only. A GitHub path with owner and repo is a repository, and those stay unlinked. */
+export function publicProjectHref(href: string | null): string | null {
+  if (!href) return null;
+  try {
+    const url = new URL(href);
+    const host = url.hostname.replace(/^www\./, "");
+    const parts = url.pathname.split("/").filter(Boolean);
+    if (host === "github.com" && parts.length >= 2) return null;
+    return href;
+  } catch {
+    return null;
+  }
+}
+
 export const site = {
   name: "Ryan Jyothis",
   firstName: "Ryan",
   lastName: "Jyothis",
   role: "Software Engineering student",
-  tagline: "The space between an idea and a usable product.",
+  tagline: "I build apps. I break them too.",
+  study: "Software Engineering, Queen's University Belfast (2024–present).",
   location: "Belfast, Northern Ireland",
-  availability: "Open to summer 2027 SWE internships in the UK and Ireland",
+  availability: "Summer 2027 internships, from July 2027",
   github: "https://github.com/rjyot",
   githubHandle: "rjyot",
-  profileReadme: "https://github.com/rjyot/rjyot",
   /**
    * Email is not on the public profile. Leave null until a real address exists.
    * The contact section renders `emailPlaceholder` and does not invent a link.
@@ -93,47 +112,46 @@ export const site = {
   email: null as string | null,
   emailPlaceholder: "PLACEHOLDER: email address",
   about: [
-    "Integrated MEng Software Engineering student at Queen's University Belfast, 2024 to 2029.",
-    "Currently a Technology Placement Analyst at Citi.",
-    "The part of software I enjoy most is the space between an idea and a usable product.",
-    "Shaping the interface, connecting the data, and getting the small details right so the whole thing actually works.",
-    "Looking for summer 2027 software engineering internships in the UK and Ireland.",
+    "The space between an idea and a usable product.",
+    "I built Brewstige, a loyalty app for small cafés that points you to the quieter ones.",
+    "A lot of that starts at hackathons, including Hack Belfast.",
+    "Off the screen I lift, play football and volleyball, and learn Arabic.",
   ],
-  stats: [
+  facts: [
     {
-      id: "start",
-      label: "MEng started",
-      value: 2024,
-      hint: "Queen's University Belfast",
+      id: "shipped",
+      label: "Shipped",
+      value: "Brewstige",
+      hint: "Loyalty app for small cafés",
     },
     {
-      id: "end",
-      label: "MEng through",
-      value: 2029,
-      hint: "Integrated master's",
+      id: "hack",
+      label: "Hack Belfast",
+      value: "Runner-up",
+      hint: "Best Real World Impact",
     },
     {
-      id: "intern",
-      label: "Internship summer",
-      value: 2027,
-      hint: "UK and Ireland",
+      id: "open",
+      label: "Open to",
+      value: "July 2027",
+      hint: "Summer internships, UK and Ireland",
     },
     {
       id: "team",
       label: "Brewstige team",
-      value: 5,
-      hint: "People at Hack Belfast",
+      value: "TODO(Ryan)",
+      hint: "Confirm the number before publishing",
     },
-  ] satisfies Stat[],
+  ] satisfies Fact[],
   projects: [
     {
       slug: "brewstige",
       name: "Brewstige",
-      summary: "A café app built with Expo and React Native.",
-      context:
-        "Hack Belfast, a 24-hour hackathon. Runner-up for Best Real World Impact, on a five-person team.",
+      summary: "A loyalty app for small cafés that points you to quieter ones.",
+      contribution: "TODO(Ryan): what you built on Brewstige, in one or two lines.",
+      context: "Hack Belfast, a 24-hour hackathon. Runner-up for Best Real World Impact.",
       stack: ["Expo", "React Native"],
-      href: "https://github.com/rjyot/brewstige",
+      href: null,
       year: "PLACEHOLDER: year",
       placeholder: false,
     },
@@ -141,6 +159,7 @@ export const site = {
       slug: "zeto",
       name: "Zeto",
       summary: "PLACEHOLDER: one sentence on what Zeto does.",
+      contribution: null,
       context:
         "Notion × Dublin AI Week Student Hackathon, October 2026. Participant. Private TypeScript repository.",
       stack: ["TypeScript"],
@@ -152,6 +171,7 @@ export const site = {
       slug: "next",
       name: "PLACEHOLDER",
       summary: "PLACEHOLDER: one sentence on a project to add.",
+      contribution: null,
       context: "PLACEHOLDER: where it came from, in one short line.",
       stack: ["PLACEHOLDER: stack"],
       href: null,
@@ -164,21 +184,20 @@ export const site = {
       id: "citi",
       kind: "work",
       org: "Citi",
-      title: "Technology Placement Analyst",
+      title: "TODO(Ryan): role title",
       dates: "PLACEHOLDER: start and end dates",
       location: "PLACEHOLDER: office location",
-      summary:
-        "PLACEHOLDER: one or two short sentences on the work. Do not guess this.",
+      summary: "TODO(Ryan): a neutral line for this role. Do not guess the work.",
       href: "https://www.citi.com",
     },
     {
       id: "qub",
       kind: "education",
       org: "Queen's University Belfast",
-      title: "MEng Software Engineering",
-      dates: "2024 – 2029",
+      title: "Software Engineering",
+      dates: "2024–present",
       location: "Belfast, Northern Ireland",
-      summary: "Integrated master's.",
+      summary: "Software Engineering, Queen's University Belfast (2024–present).",
       href: "https://www.qub.ac.uk",
     },
   ] satisfies TimelineItem[],
@@ -187,7 +206,7 @@ export const site = {
       id: "hack-belfast",
       event: "Hack Belfast",
       result: "Runner-up, Best Real World Impact",
-      detail: "24-hour hackathon. Five-person team. The project was Brewstige.",
+      detail: "24-hour hackathon. The project was Brewstige. Team size: TODO(Ryan).",
       when: "PLACEHOLDER: year",
     },
     {
@@ -211,18 +230,6 @@ export const site = {
     { id: "maps", label: "Maps", items: ["MapLibre"] },
   ] satisfies SkillGroup[],
   now: [
-    {
-      id: "leetcode",
-      title: "LeetCode patterns",
-      status: "PLACEHOLDER: the pattern in focus",
-      detail: "PLACEHOLDER: one short line on how it's going. No invented counts.",
-    },
-    {
-      id: "arabic",
-      title: "Arabic",
-      status: "PLACEHOLDER: what you're studying",
-      detail: "PLACEHOLDER: one short line. No invented level.",
-    },
     {
       id: "gym",
       title: "Gym",
@@ -257,7 +264,7 @@ export const site = {
     },
   ] satisfies ContactLink[],
   contactNote:
-    "Hiring for summer 2027 software engineering internships in the UK or Ireland? Get in touch on LinkedIn or Instagram.",
+    "Hiring for summer 2027 internships from July 2027, in the UK or Ireland? LinkedIn, Instagram, or GitHub.",
 };
 
 export const nav = [

@@ -1,6 +1,10 @@
 import { isPlaceholder } from "@/content/site";
 import { cn } from "@/lib/utils";
 
+function todoClass(value: string) {
+  return value.includes("TODO(Ryan)") ? "text-amber" : undefined;
+}
+
 export function NeedsCopy({ className }: { className?: string }) {
   return (
     <span
@@ -16,7 +20,7 @@ export function NeedsCopy({ className }: { className?: string }) {
 
 export function TextValue({ value, className }: { value: string; className?: string }) {
   if (!isPlaceholder(value)) {
-    return <span className={className}>{value}</span>;
+    return <span className={cn(todoClass(value), className)}>{value}</span>;
   }
 
   return (
@@ -29,7 +33,7 @@ export function TextValue({ value, className }: { value: string; className?: str
 
 export function Paragraph({ value, className }: { value: string; className?: string }) {
   if (!isPlaceholder(value)) {
-    return <p className={className}>{value}</p>;
+    return <p className={cn(todoClass(value), className)}>{value}</p>;
   }
 
   return (

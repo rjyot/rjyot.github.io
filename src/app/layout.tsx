@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Lexend } from "next/font/google";
+import { Bricolage_Grotesque, Lexend, Noto_Sans_Arabic } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { Footer } from "@/components/footer";
-import { Providers } from "@/components/providers";
+import { Nav } from "@/components/nav";
 import { site } from "@/content/site";
 
 import "./globals.css";
@@ -11,15 +11,28 @@ import "./globals.css";
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display-family",
-  display: "swap",
-  weight: ["600", "700", "800"],
+  display: "optional",
+  weight: ["600", "800"],
+  adjustFontFallback: true,
+  preload: true,
 });
 
 const body = Lexend({
   subsets: ["latin"],
   variable: "--font-body-family",
-  display: "swap",
-  weight: ["400", "500", "600"],
+  display: "optional",
+  weight: ["400", "600"],
+  adjustFontFallback: true,
+  preload: false,
+});
+
+const arabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  variable: "--font-arabic-family",
+  display: "optional",
+  weight: ["600"],
+  adjustFontFallback: false,
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -27,14 +40,17 @@ export const metadata: Metadata = {
     default: "Ryan Jyothis · Software Engineering",
     template: "%s · Ryan Jyothis",
   },
-  description: `${site.tagline} MEng student at Queen's University Belfast, open to summer 2027 software engineering internships in the UK and Ireland.`,
+  description: `${site.tagline} ${site.study} ${site.availability}. UK and Ireland.`,
   authors: [{ name: site.name, url: site.github }],
   applicationName: site.name,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} ${arabic.variable} h-full antialiased`}
+    >
       <body className="min-h-full bg-ink text-paper">
         <a
           href="#content"
@@ -42,10 +58,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Skip to content
         </a>
-        <Providers>
-          {children}
-          <Footer />
-        </Providers>
+        <Nav />
+        {children}
+        <Footer />
+        <script src="/enhance.js" defer />
       </body>
     </html>
   );

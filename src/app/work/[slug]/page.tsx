@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { PageTransition } from "@/components/page-transition";
 import { WorkArticle } from "@/components/work-article";
 import { getProject, isPlaceholder, site } from "@/content/site";
 
@@ -31,9 +30,5 @@ export default async function WorkPage(props: WorkPageProps) {
   const project = getProject(slug);
   if (!project) notFound();
 
-  return (
-    <PageTransition>
-      <WorkArticle project={project} />
-    </PageTransition>
-  );
+  return <WorkArticle project={project} />;
 }

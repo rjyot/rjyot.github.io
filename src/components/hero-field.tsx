@@ -53,7 +53,7 @@ function Field({ mouse }: { mouse: React.RefObject<THREE.Vector2> }) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
   const geometry = useMemo(() => {
-    const count = window.innerWidth < 768 ? 360 : 720;
+    const count = window.innerWidth < 768 ? 120 : 320;
     const positions = new Float32Array(count * 3);
     const scales = new Float32Array(count);
     const accents = new Float32Array(count);
@@ -148,10 +148,10 @@ export function HeroField() {
     <div ref={rootRef} className="absolute inset-0" aria-hidden="true">
       <Canvas
         className={`h-full w-full transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}
-        dpr={[1, 1.25]}
+        dpr={1}
         frameloop={visible ? "always" : "never"}
         camera={{ position: [0, 0, 5.5], fov: 42 }}
-        gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+        gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
           setReady(true);

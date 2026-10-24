@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useRef } from "react";
 
 import { useMotion } from "@/components/motion-provider";
+import { cn } from "@/lib/utils";
 
 export function Magnetic({
   children,
@@ -16,35 +16,29 @@ export function Magnetic({
 }) {
   const motionOn = useMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 170, damping: 16, mass: 0.35 });
-  const springY = useSpring(y, { stiffness: 170, damping: 16, mass: 0.35 });
 
   function onMove(event: React.MouseEvent<HTMLDivElement>) {
     if (!motionOn || !ref.current) return;
     const bounds = ref.current.getBoundingClientRect();
-    const dx = event.clientX - (bounds.left + bounds.width / 2);
-    const dy = event.clientY - (bounds.top + bounds.height / 2);
-    x.set(dx * strength);
-    y.set(dy * strength);
+    const dx = (event.clientX - (bounds.left + bounds.width / 2)) * strength;
+    const dy = (event.clientY - (bounds.top + bounds.height / 2)) * strength;
+    ref.current.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
   }
 
   function onLeave() {
-    x.set(0);
-    y.set(0);
+    if (!ref.current) return;
+    ref.current.style.transform = "translate3d(0, 0, 0)";
   }
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      className={className}
-      style={{ x: springX, y: springY }}
+      className={cn("magnetic", className)}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       data-cursor="hot"
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

@@ -6,11 +6,11 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <p className="font-display text-2xl font-extrabold">Ryan Jyothis</p>
         <p className="max-w-md text-lg text-muted">
-          Belfast. Facts come from the{" "}
-          <a href={site.profileReadme} className="text-blue-bright underline underline-offset-4">
-            public GitHub profile
+          Belfast. The public GitHub link is the{" "}
+          <a href={site.github} className="text-blue-bright underline underline-offset-4">
+            rjyot profile
           </a>
-          . Lines that start with PLACEHOLDER are waiting for copy.
+          . Other repositories stay private. PLACEHOLDER and TODO(Ryan) lines are waiting on Ryan.
         </p>
       </div>
     </footer>
