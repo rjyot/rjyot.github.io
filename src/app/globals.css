@@ -157,7 +157,50 @@ html.has-cursor * {
 }
 
 .rise {
-  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 1;
+  animation: rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+h1,
+h2,
+h3,
+p {
+  opacity: 1;
+}
+
+a[aria-current="true"] {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.28em;
+}
+
+html[data-motion="on"] main > section:nth-child(2) .rise {
+  animation-delay: 70ms;
+}
+html[data-motion="on"] main > section:nth-child(3) .rise {
+  animation-delay: 140ms;
+}
+html[data-motion="on"] main > section:nth-child(4) .rise {
+  animation-delay: 210ms;
+}
+html[data-motion="on"] main > section:nth-child(5) .rise {
+  animation-delay: 280ms;
+}
+html[data-motion="on"] main > section:nth-child(6) .rise {
+  animation-delay: 350ms;
+}
+html[data-motion="on"] main > section:nth-child(7) .rise {
+  animation-delay: 420ms;
+}
+
+html[data-motion="on"] .goal-arc {
+  animation: goal-draw 0.8s ease-out;
+}
+
+@keyframes goal-draw {
+  from {
+    stroke-dashoffset: var(--goal-circ);
+  }
 }
 
 @keyframes rise {
@@ -308,40 +351,31 @@ html[data-motion="on"] .now-dot {
   animation-duration: 420ms;
 }
 
-::view-transition-old(.nav-forward) {
-  --slide-offset: -60px;
-  animation:
-    150ms ease-in both fade reverse,
-    400ms ease-in-out both slide reverse;
+::view-transition-old(root),
+::view-transition-new(root) {
+  opacity: 1;
+  animation-duration: 280ms;
+  animation-timing-function: ease-out;
+  mix-blend-mode: normal;
 }
 
-::view-transition-new(.nav-forward) {
-  --slide-offset: 60px;
-  animation:
-    210ms ease-out 150ms both fade,
-    400ms ease-in-out both slide;
+::view-transition-old(root) {
+  animation-name: vt-out;
 }
 
-::view-transition-old(.nav-back) {
-  --slide-offset: 60px;
-  animation:
-    150ms ease-in both fade reverse,
-    400ms ease-in-out both slide reverse;
+::view-transition-new(root) {
+  animation-name: vt-in;
 }
 
-::view-transition-new(.nav-back) {
-  --slide-offset: -60px;
-  animation:
-    210ms ease-out 150ms both fade,
-    400ms ease-in-out both slide;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
+@keyframes vt-out {
   to {
-    opacity: 1;
+    transform: translateY(-0.75rem);
+  }
+}
+
+@keyframes vt-in {
+  from {
+    transform: translateY(0.75rem);
   }
 }
 

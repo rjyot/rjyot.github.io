@@ -243,7 +243,8 @@
     var uRes = gl.getUniformLocation(program, "uRes");
     var mouse = [0, 0];
     var current = [0, 0];
-    var visible = true;
+    var onScreen = true;
+    var pageVisible = !document.hidden;
     var frame = 0;
     var start = performance.now();
 
@@ -265,22 +266,28 @@
       },
       { passive: true },
     );
+    function drawing() {
+      return onScreen && pageVisible && root.dataset.motion === "on";
+    }
     function startDraw() {
-      if (frame || !visible || root.dataset.motion !== "on") return;
+      if (frame || !drawing()) return;
       frame = window.requestAnimationFrame(draw);
     }
     var watcher = new IntersectionObserver(function (entries) {
-      visible = entries[0] ? entries[0].isIntersecting : false;
+      onScreen = entries[0] ? entries[0].isIntersecting : false;
       startDraw();
     });
     watcher.observe(host);
+    document.addEventListener("visibilitychange", function () {
+      pageVisible = !document.hidden;
+      if (pageVisible) startDraw();
+    });
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     function draw(now) {
-      if (root.dataset.motion !== "on") return;
-      if (!visible) {
+      if (!drawing()) {
         frame = 0;
         return;
       }
@@ -325,6 +332,17 @@
     if (motionOn()) setupCursor();
   });
   if (motionOn()) scheduleField();
+
+  function moveFocus() {
+    var hash = window.location.hash;
+    var target = hash ? document.getElementById(hash.slice(1)) : null;
+    if (!target) target = document.querySelector("h1");
+    if (!target) return;
+    if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+    target.focus({ preventScroll: true });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", moveFocus);
+  else moveFocus();
 
   document.addEventListener("click", function (event) {
     if (root.dataset.motion !== "on" || !document.startViewTransition) return;

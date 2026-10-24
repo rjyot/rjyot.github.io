@@ -3,7 +3,7 @@ import { nav, site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 const linkClass =
-  "text-lg text-paper underline-offset-4 hover:underline aria-[current=true]:text-blue-bright";
+  "text-lg text-paper underline-offset-4 hover:underline aria-[current=true]:text-blue-bright aria-[current=true]:underline aria-[current=true]:decoration-2";
 
 export function Nav() {
   return (

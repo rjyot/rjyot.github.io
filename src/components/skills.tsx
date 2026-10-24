@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 
 export function Skills() {
   return (
-    <section id="skills" className="bg-ink px-5 py-20 md:px-10 md:py-28">
+    <section id="skills" tabIndex={-1} className="bg-ink px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           index="05"

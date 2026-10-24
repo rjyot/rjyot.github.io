@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 
 export function About() {
   return (
-    <section id="about" className="bg-panel px-5 py-20 md:px-10 md:py-28">
+    <section id="about" tabIndex={-1} className="bg-panel px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-16">
         <Reveal>
           <div>
@@ -18,7 +18,7 @@ export function About() {
         </Reveal>
         <div>
           <SectionHeading index="02" title="About" className="mb-5" />
-          <div className="max-w-[38rem] space-y-4">
+          <div className="rise max-w-[38rem] space-y-4">
             {site.about.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}

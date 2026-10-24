@@ -21,6 +21,9 @@ export function WorkArticle({ project }: { project: Project }) {
         {project.contribution ? (
           <Paragraph value={project.contribution} className="mt-8 max-w-[38rem]" />
         ) : null}
+        {project.contributionNote ? (
+          <p className="mt-4 max-w-[38rem] text-lg text-amber">{project.contributionNote}</p>
+        ) : null}
         <Paragraph
           value={project.summary}
           className={project.contribution ? "mt-4 max-w-[38rem]" : "mt-8 max-w-[38rem]"}

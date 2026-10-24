@@ -1,8 +1,10 @@
+import { ChestPressGoal } from "@/components/chest-press-goal";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { StreakWidget } from "@/components/streak-widget";
 import { Paragraph } from "@/components/text-value";
 import { learning, learningConfig, patternStatusLabel, type PatternStatus } from "@/content/learning";
-import { githubStreak, site } from "@/content/site";
+import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 const statusClass: Record<PatternStatus, string> = {
@@ -15,7 +17,7 @@ export function Now() {
   const { leetcode } = learning;
 
   return (
-    <section id="now" className="bg-panel px-5 py-20 md:px-10 md:py-28">
+    <section id="now" tabIndex={-1} className="bg-panel px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           index="06"
@@ -27,24 +29,10 @@ export function Now() {
           <Reveal>
             <ArabicCard />
           </Reveal>
-          {githubStreak ? (
-            <Reveal>
-              <article className="flex h-full flex-col border-t-4 border-blue bg-ink p-6">
-                <div className="flex items-center gap-3">
-                  <span className="now-dot" aria-hidden="true" />
-                  <h3 className="font-display text-3xl font-extrabold tracking-tight">GitHub streak</h3>
-                </div>
-                <p className="mt-5 text-lg">{githubStreak.days} days</p>
-                <p className="mt-3 text-lg text-muted">Counted live as of {githubStreak.asOf}.</p>
-                <a
-                  href={site.github}
-                  className="mt-5 text-lg text-blue-bright underline underline-offset-4"
-                >
-                  GitHub profile
-                </a>
-              </article>
-            </Reveal>
-          ) : null}
+          <Reveal>
+            <StreakWidget />
+          </Reveal>
+          <ChestPressGoal />
           {site.now.map((item) => (
             <Reveal key={item.id}>
               <article className="flex h-full flex-col border-t-4 border-blue bg-ink p-6">

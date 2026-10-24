@@ -35,14 +35,39 @@ const arabic = Noto_Sans_Arabic({
   preload: false,
 });
 
+const title = "Ryan Jyothis · Software Engineering";
+const ogImage = {
+  url: `${site.origin}/og.png`,
+  width: 1200,
+  height: 630,
+  alt: "Ryan Jyothis. I build apps. I break them too. Open to internships from July 2027.",
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(site.origin),
   title: {
-    default: "Ryan Jyothis · Software Engineering",
+    default: title,
     template: "%s · Ryan Jyothis",
   },
   description: site.description,
   authors: [{ name: site.name, url: site.github }],
   applicationName: site.name,
+  alternates: { canonical: `${site.origin}/` },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    siteName: site.name,
+    title,
+    description: site.description,
+    url: `${site.origin}/`,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: site.description,
+    images: [ogImage.url],
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

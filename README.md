@@ -18,7 +18,7 @@ npm run lint
 npm run build
 ```
 
-`npm run build` writes a static site to `out/`.
+`npm run build` writes a static site to `out/`. Social tags use the absolute origin in `site.origin` (`https://rjyot.github.io`). Change that string if the public host is different. The chest-press goal ring stays hidden until `showChestPressGoal` in `src/content/fitness.ts` is set to true.
 
 ## Edit the copy
 

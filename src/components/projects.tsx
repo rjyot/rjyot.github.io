@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export function Projects() {
   return (
-    <section id="projects" className="bg-ink py-20 md:py-28">
+    <section id="projects" tabIndex={-1} className="bg-ink py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <SectionHeading
           index="03"

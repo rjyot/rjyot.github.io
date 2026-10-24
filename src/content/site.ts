@@ -23,6 +23,8 @@ export type Project = {
   stack: string[];
   /** Personal part in the work. Use a TODO(Ryan) string until it is confirmed. */
   contribution: string | null;
+  /** A follow-up note, usually a TODO(Ryan) line. */
+  contributionNote: string | null;
   href: string | null;
   year: string;
   /** True when the card is an open slot, not a shipped project. */
@@ -106,6 +108,11 @@ export const site = {
   availability: "Summer 2027 internships, from July 2027",
   github: "https://github.com/rjyot",
   githubHandle: "rjyot",
+  /**
+   * Absolute origin for canonical and social links.
+   * Change this when the public host is different.
+   */
+  origin: "https://rjyot.github.io",
   /**
    * CV PDF is not in the repo. Leave null until a real file path exists.
    * The hero shows `cvNote` and does not link a missing file.
@@ -198,8 +205,12 @@ export const site = {
       slug: "brewstige",
       name: "Brewstige",
       summary: "A loyalty app for small cafés that points you to quieter ones.",
-      contribution: "TODO(Ryan): what you built on Brewstige, in one or two lines.",
-      context: "Hack Belfast, a 24-hour hackathon. Runner-up for Best Real World Impact.",
+      contribution:
+        "I co-founded Brewstige and led the frontend at HackBelfast 2026. During the same 36 hours I talked to 13 Belfast café owners and came away with a letter of interest and a paying client. Since then I've worked on getting the mobile app release-ready. I fixed the Android camera permission so QR scanning works (KAN-23), brought the app onto its Expo SDK 57 baseline with a single required CI check, and got expo-doctor passing. I also removed the old web MVP, tightened Supabase permissions to least privilege, stopped featured stickers leaking between accounts on a shared phone, hid Apple sign-in until it's set up, and wrote the café go-live content standard.",
+      contributionNote:
+        "TODO(Ryan): confirm the wording, and whether the camera fix is tested on a real Android phone.",
+      context:
+        "Built by a team of three. Hack Belfast, a 24-hour hackathon. Runner-up for Best Real World Impact.",
       stack: ["Expo", "React Native"],
       href: null,
       year: "PLACEHOLDER: year",
@@ -210,6 +221,7 @@ export const site = {
       name: "Zeto",
       summary: "PLACEHOLDER: one sentence on what Zeto does.",
       contribution: null,
+      contributionNote: null,
       context:
         "Notion × Dublin AI Week Student Hackathon, October 2026. Participant. Private TypeScript repository.",
       stack: ["TypeScript"],
@@ -222,6 +234,7 @@ export const site = {
       name: "PLACEHOLDER",
       summary: "PLACEHOLDER: one sentence on a project to add.",
       contribution: null,
+      contributionNote: null,
       context: "PLACEHOLDER: where it came from, in one short line.",
       stack: ["PLACEHOLDER: stack"],
       href: null,

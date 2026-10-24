@@ -8,7 +8,10 @@ export function Hero() {
     <section className="flex min-h-[100svh] flex-col bg-ink lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
       <div className="flex flex-1 flex-col justify-end px-5 pb-8 pt-28 md:px-10 lg:justify-center lg:py-28">
         <p className="text-lg font-semibold text-blue-bright">{site.role}</p>
-        <h1 className="mt-4 font-display text-[clamp(4.25rem,11vw,8.25rem)] font-extrabold leading-[0.88] tracking-[-0.045em]">
+        <h1
+          tabIndex={-1}
+          className="mt-4 font-display text-[clamp(4.25rem,11vw,8.25rem)] font-extrabold leading-[0.88] tracking-[-0.045em]"
+        >
           {site.firstName}
           <br />
           {site.lastName}

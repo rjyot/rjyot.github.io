@@ -12,7 +12,7 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <header className={cn("mb-8 max-w-3xl", className)}>
+    <header className={cn("rise mb-8 max-w-3xl", className)}>
       <p className="text-lg font-semibold text-amber">{index}</p>
       <h2 className="mt-2 font-display text-[clamp(2.6rem,6vw,4.75rem)] font-extrabold leading-[0.95] tracking-[-0.04em]">
         {title}

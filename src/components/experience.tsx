@@ -5,7 +5,7 @@ import { isPlaceholder, site } from "@/content/site";
 
 export function Experience() {
   return (
-    <section id="experience" className="bg-panel px-5 py-20 md:px-10 md:py-28">
+    <section id="experience" tabIndex={-1} className="bg-panel px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading index="04" title="Experience" lede="Work, Queen's, and two hackathons." />
 
