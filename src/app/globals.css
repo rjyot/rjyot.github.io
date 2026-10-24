@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #07111c;
+  --color-panel: #10233a;
+  --color-line: #2c4a6e;
+  --color-paper: #f4f7fb;
+  --color-muted: #c9d6e8;
+  --color-blue: #3d7eff;
+  --color-blue-bright: #b7d0ff;
+  --color-amber: #f0b56a;
+  --font-display: var(--font-display-family), "Arial Black", sans-serif;
+  --font-body: var(--font-body-family), "Segoe UI", sans-serif;
+}
+
+html {
+  background: #07111c;
+  color: #f4f7fb;
+  color-scheme: dark;
+  scroll-behavior: auto;
+}
+
+body {
+  background: #07111c;
+  color: #f4f7fb;
+  font-family: var(--font-body-family), "Segoe UI", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display-family), "Arial Black", sans-serif;
+  text-wrap: balance;
+}
+
+::selection {
+  background: #3d7eff;
+  color: #07111c;
+}
+
+:focus-visible {
+  outline: 3px solid #b7d0ff;
+  outline-offset: 4px;
+}
+
+section[id],
+main[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+a {
+  text-underline-offset: 4px;
+}
+
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #b7d0ff;
+  border-radius: 999px;
+  transition: width 160ms ease, height 160ms ease, border-color 160ms ease;
+}
+
+.cursor-ring[data-hot="true"] {
+  width: 68px;
+  height: 68px;
+  border-color: #f0b56a;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #3d7eff;
+  border-radius: 999px;
+}
+
+.card-offset {
+  box-shadow: 12px 12px 0 0 #3d7eff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-offset:hover {
+    box-shadow: 16px 16px 0 0 #f0b56a;
+  }
+}
+
+.now-dot {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: #3d7eff;
+}
+
+html[data-motion="on"] .now-dot {
+  animation: now-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes now-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.55);
+  }
+}
+
+.project-viewport {
+  overflow: visible;
+}
+
+.project-track {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.project-card {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .project-gallery {
+    display: flex;
+    height: 100svh;
+    flex-direction: column;
+  }
+
+  .project-viewport {
+    min-height: 0;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .project-track {
+    flex-direction: row;
+    align-items: center;
+    width: max-content;
+    height: 100%;
+    gap: 1.5rem;
+    padding-inline: 8vw 18vw;
+  }
+
+  .project-card {
+    width: min(76vw, 860px);
+  }
+
+  .project-gallery.is-pinned .project-viewport {
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  .project-gallery,
+  .project-viewport,
+  .project-track,
+  .project-card {
+    display: block;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .project-track {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-inline: 1.25rem;
+  }
+
+  .project-card {
+    width: 100%;
+  }
+
+  .project-progress {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  html[data-motion="off"] .project-gallery,
+  html[data-motion="off"] .project-viewport {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  html[data-motion="off"] .project-track {
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    padding-inline: 1.25rem;
+  }
+
+  html[data-motion="off"] .project-card {
+    width: 100%;
+  }
+
+  html[data-motion="off"] .project-progress {
+    display: none !important;
+  }
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-group(site-header) {
+  z-index: 100;
+  animation: none;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+}
+
+::view-transition-old(.nav-forward) {
+  --slide-offset: -60px;
+  animation:
+    150ms ease-in both fade reverse,
+    400ms ease-in-out both slide reverse;
+}
+
+::view-transition-new(.nav-forward) {
+  --slide-offset: 60px;
+  animation:
+    210ms ease-out 150ms both fade,
+    400ms ease-in-out both slide;
+}
+
+::view-transition-old(.nav-back) {
+  --slide-offset: 60px;
+  animation:
+    150ms ease-in both fade reverse,
+    400ms ease-in-out both slide reverse;
+}
+
+::view-transition-new(.nav-back) {
+  --slide-offset: -60px;
+  animation:
+    210ms ease-out 150ms both fade,
+    400ms ease-in-out both slide;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  from {
+    translate: var(--slide-offset);
+  }
+  to {
+    translate: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html[data-motion="off"] *,
+html[data-motion="off"] *::before,
+html[data-motion="off"] *::after,
+html[data-motion="off"] ::view-transition-group(*),
+html[data-motion="off"] ::view-transition-old(*),
+html[data-motion="off"] ::view-transition-new(*) {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
