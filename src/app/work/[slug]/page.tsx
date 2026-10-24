@@ -3,14 +3,14 @@ import { notFound } from "next/navigation";
 
 import { WorkArticle } from "@/components/work-article";
 import { ogCard, ogImage } from "@/content/og";
-import { getProject, isPlaceholder, site } from "@/content/site";
+import { getProject, isPlaceholder, isPublicProject, site } from "@/content/site";
 import { published } from "@/lib/publish";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   return site.projects
-    .filter((project) => process.env.NODE_ENV === "development" || !project.placeholder)
+    .filter((project) => process.env.NODE_ENV === "development" || isPublicProject(project))
     .map((project) => ({ slug: project.slug }));
 }
 

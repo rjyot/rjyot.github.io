@@ -47,6 +47,10 @@ h4 {
   outline-offset: 4px;
 }
 
+h1:focus:not(:focus-visible) {
+  outline: none;
+}
+
 section[id],
 main[id],
 #brewstige,

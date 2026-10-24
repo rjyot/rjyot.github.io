@@ -73,7 +73,15 @@ export type Fact = {
   label: string;
   value: string;
   hint: string;
+  /** Hidden while `reviewConfig.showPersonalStats` is off. */
+  personal?: boolean;
 };
+
+export function isPublicProject(project: { slug: string; placeholder: boolean }) {
+  if (project.placeholder) return false;
+  if (project.slug === "zeto" && !reviewConfig.showBuiltZeto) return false;
+  return true;
+}
 
 /**
  * Café claims and the Hack Belfast runner-up line stay off until Ryan confirms them.
@@ -81,6 +89,12 @@ export type Fact = {
 export const brewstigeConfig = {
   showCafeClaims: false,
   showRealWorldImpact: false,
+};
+
+/** Recruiter-facing switches. Both stay off until Ryan confirms the copy. */
+export const reviewConfig = {
+  showPersonalStats: false,
+  showBuiltZeto: false,
 };
 
 const brewstigeCafeClaims =
@@ -104,6 +118,11 @@ function brewstigeContext() {
 function hackAwardResult() {
   if (brewstigeConfig.showRealWorldImpact) return "Runner-up, Best Real World Impact";
   return "TODO(Ryan): Best Real World Impact, runner-up";
+}
+
+function dublinAwardDetail() {
+  if (reviewConfig.showBuiltZeto) return "Built Zeto. October 2026. Private TypeScript repository.";
+  return "TODO(Ryan): Built Zeto, Dublin AI Week.";
 }
 
 function brewstigeContributionNote() {
@@ -222,6 +241,7 @@ export const site = {
       label: "One session",
       value: "5,190 kg",
       hint: "20 Oct 2026",
+      personal: true,
     },
     {
       id: "gym",
@@ -246,12 +266,14 @@ export const site = {
       label: "Second brain",
       value: "4 agents",
       hint: "Extractor, Librarian, Recall, Follow-Up",
+      personal: true,
     },
     {
       id: "reels",
       label: "Reels filed",
       value: "About 30",
       hint: "Notion library, since early Oct 2026",
+      personal: true,
     },
   ] satisfies Fact[],
   projects: [
@@ -300,11 +322,11 @@ export const site = {
     {
       id: "citi",
       kind: "work",
-      org: "Citi",
+      org: "Software engineering placement, Citi, June 2026 – present",
       /** Role line only. Do not say production or Technology Placement Analyst. */
-      title: "Software engineering placement",
-      dates: "PLACEHOLDER: start and end dates",
-      location: "PLACEHOLDER: office location",
+      title: null,
+      dates: "",
+      location: "",
       // Do not guess the work or a job title.
       summary: "TODO(Ryan): what to say about this placement.",
       href: "https://www.citi.com",
@@ -316,7 +338,7 @@ export const site = {
       title: "Software Engineering",
       dates: "2024–present",
       location: "Belfast, Northern Ireland",
-      summary: "Software Engineering, Queen's University Belfast (2024–present).",
+      summary: "",
       href: "https://www.qub.ac.uk",
     },
   ] satisfies TimelineItem[],
@@ -332,7 +354,7 @@ export const site = {
       id: "dublin",
       event: "Notion × Dublin AI Week Student Hackathon",
       result: "Participant",
-      detail: "Built Zeto. October 2026. Private TypeScript repository.",
+      detail: dublinAwardDetail(),
       when: "October 2026",
     },
   ] satisfies Award[],

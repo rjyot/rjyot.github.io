@@ -102,6 +102,18 @@ if (flagOff("src/content/site.ts", "showCafeClaims")) {
   flagged.push([/paying client/i, "café claims"]);
   flagged.push([/letter of interest/i, "café claims"]);
 }
+if (flagOff("src/content/site.ts", "showPersonalStats")) {
+  flagged.push([/4 agents/i, "personal stats"]);
+  flagged.push([/Extractor/i, "personal stats"]);
+  flagged.push([/Librarian/i, "personal stats"]);
+  flagged.push([/Follow-Up/i, "personal stats"]);
+  flagged.push([/Second brain/i, "personal stats"]);
+  flagged.push([/Reels filed/i, "personal stats"]);
+  flagged.push([/5,190/, "personal stats"]);
+}
+if (flagOff("src/content/site.ts", "showBuiltZeto")) {
+  flagged.push([/Built Zeto/i, "Zeto"]);
+}
 if (flagOff("src/content/learning.ts", "showCounts")) {
   flagged.push([/cards seen/i, "learning counts"]);
   flagged.push([/notes in the deck/i, "learning counts"]);

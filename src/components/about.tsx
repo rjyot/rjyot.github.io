@@ -2,7 +2,7 @@ import { CreditedPhoto } from "@/components/credited-photo";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { belfastPhotos } from "@/content/photos";
-import { site } from "@/content/site";
+import { reviewConfig, site } from "@/content/site";
 import { isDev, published } from "@/lib/publish";
 
 export function About({ heading = "h2" }: { heading?: "h1" | "h2" }) {
@@ -50,7 +50,10 @@ export function About({ heading = "h2" }: { heading?: "h1" | "h2" }) {
 
       <dl className="mx-auto mt-14 grid max-w-6xl gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
         {site.facts
-          .filter((fact) => isDev || published(fact.value))
+          .filter((fact) => {
+            if (fact.personal && !reviewConfig.showPersonalStats) return false;
+            return Boolean(published(fact.label) && published(fact.value));
+          })
           .map((fact) => (
           <div key={fact.id} className="bg-panel px-5 py-6">
             <dt className="text-lg text-muted">{fact.label}</dt>
@@ -61,7 +64,7 @@ export function About({ heading = "h2" }: { heading?: "h1" | "h2" }) {
                   : "mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-paper md:text-4xl"
               }
             >
-              {fact.value}
+              {published(fact.value)}
             </dd>
             <dd className="mt-2 text-lg text-blue-bright">{fact.hint}</dd>
           </div>

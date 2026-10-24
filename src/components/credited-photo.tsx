@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { PhotoCredit } from "@/content/photos";
 
 export function CreditedPhoto({ photo }: { photo: PhotoCredit }) {
+  if (!photo.src || !photo.alt || !photo.caption) return null;
   return (
     <figure className="border border-line bg-ink">
       <Image

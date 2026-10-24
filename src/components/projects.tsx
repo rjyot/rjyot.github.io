@@ -3,12 +3,12 @@ import { ScreenshotFrame } from "@/components/screenshot-frame";
 import { SectionHeading } from "@/components/section-heading";
 import { NeedsCopy, Paragraph, TextValue } from "@/components/text-value";
 import { buttonVariants } from "@/components/ui/button-styles";
-import { isPlaceholder, site, type Project } from "@/content/site";
+import { isPlaceholder, isPublicProject, reviewConfig, site, type Project } from "@/content/site";
 import { isDev, published } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
 export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
-  const projects = site.projects.filter((project) => isDev || !project.placeholder);
+  const projects = site.projects.filter((project) => isDev || isPublicProject(project));
   return (
     <section id="projects" tabIndex={-1} className="bg-ink py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-10">
@@ -18,7 +18,9 @@ export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
           lede={
             isDev
               ? "Brewstige and Zeto are the projects on record. The third card is an open slot."
-              : "Brewstige and Zeto are the projects on record."
+              : reviewConfig.showBuiltZeto
+                ? "Brewstige and Zeto are the projects on record."
+                : "Brewstige is the project on record."
           }
           as={heading}
         />

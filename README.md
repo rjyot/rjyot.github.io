@@ -34,7 +34,7 @@ Facts already filled in come from the public GitHub profile. The only GitHub URL
 
 To publish an email, set `email` in `site.ts` to the address. Until then the hero and contact section show `TODO(Ryan)` and do not invent a mailto link. The hero CV link goes to `/cv/`. Do not point it at a PDF until Ryan picks which CV is public.
 
-The About section shows two photographs of Belfast, credited in [`src/content/photos.ts`](src/content/photos.ts). The skyline is Thomas Nugent, CC BY-SA 2.0, via Geograph. The Lanyon Building is Man vyi, public domain, via Wikimedia Commons. There is no photo of Ryan and no Brewstige screenshot. Those slots stay as `TODO(Ryan): a real photo` and `TODO(Ryan): app screenshot`. Do not drop in café stock, generated art, or the Expo template icon.
+The About section shows one photograph of Belfast, credited in [`src/content/photos.ts`](src/content/photos.ts). The skyline is Thomas Nugent, CC BY-SA 2.0, via Geograph. There is no photo of Ryan and no Brewstige screenshot. Those slots stay as `TODO(Ryan): a real photo` and `TODO(Ryan): app screenshot`. Do not drop in café stock, generated art, or the Expo template icon.
 
 ## Motion
 

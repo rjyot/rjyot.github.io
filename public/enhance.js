@@ -339,7 +339,7 @@
     if (!target) target = document.querySelector("h1");
     if (!target) return;
     if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
-    target.focus({ preventScroll: true });
+    target.focus({ preventScroll: true, focusVisible: false });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", moveFocus);
   else moveFocus();

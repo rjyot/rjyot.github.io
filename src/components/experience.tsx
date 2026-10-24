@@ -1,8 +1,8 @@
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Paragraph, TextValue } from "@/components/text-value";
-import { isPlaceholder, site } from "@/content/site";
-import { published } from "@/lib/publish";
+import { isPlaceholder, reviewConfig, site } from "@/content/site";
+import { isDev, published } from "@/lib/publish";
 
 export function Experience({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   return (
@@ -49,7 +49,9 @@ export function Experience({ heading = "h2" }: { heading?: "h1" | "h2" }) {
         </ol>
 
         <div className="mt-16 grid gap-4 lg:grid-cols-2">
-          {site.awards.map((award) => (
+          {site.awards
+            .filter((award) => isDev || award.id !== "dublin" || reviewConfig.showBuiltZeto)
+            .map((award) => (
             <Reveal key={award.id}>
               <article className="h-full border border-line bg-ink p-6">
                 {published(award.when) ? (

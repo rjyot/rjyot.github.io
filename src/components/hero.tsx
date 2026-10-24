@@ -1,7 +1,7 @@
 import { HeroCanvasSlot } from "@/components/static-field";
 import { buttonVariants } from "@/components/ui/button-styles";
 import { site } from "@/content/site";
-import { published } from "@/lib/publish";
+import { isDev, published } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
 export function Hero() {
@@ -37,12 +37,16 @@ export function Hero() {
           <a href={site.github} className="font-semibold text-blue-bright underline underline-offset-4">
             GitHub
           </a>
-          <a
-            href={site.email ? `mailto:${site.email}` : "/#contact"}
-            className="font-semibold text-blue-bright underline underline-offset-4"
-          >
-            {site.email ? "Email" : published(`Email · ${site.emailNote}`)}
-          </a>
+          {site.email ? (
+            <a
+              href={`mailto:${site.email}?subject=${encodeURIComponent("Summer 2027 internship")}`}
+              className="font-semibold text-blue-bright underline underline-offset-4"
+            >
+              Email
+            </a>
+          ) : isDev ? (
+            <span className="font-semibold text-amber">{published(`Email · ${site.emailNote}`)}</span>
+          ) : null}
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <a

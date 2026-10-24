@@ -26,6 +26,7 @@ export function FitnessPanel() {
       </p>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        {fitnessConfig.showSessionCount || isDev ? (
         <article className="border border-line p-5">
           <h4 className="text-lg font-semibold text-blue-bright">{october.label}</h4>
           {fitnessConfig.showSessionCount ? (
@@ -74,6 +75,7 @@ export function FitnessPanel() {
             </figure>
           ) : null}
         </article>
+        ) : null}
 
         {lifts.map((lift) => (
           <article key={lift.name} className="border border-line p-5">
