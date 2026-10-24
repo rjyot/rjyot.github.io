@@ -103,14 +103,26 @@ export const site = {
   study: "Software Engineering, Queen's University Belfast (2024–present).",
   location: "Belfast, Northern Ireland",
   availability: "Summer 2027 internships, from July 2027",
+  /** Neutral until the placement framing is confirmed. Do not invent a title or a start date. */
+  citiLine: "TODO(Ryan): a neutral line for the Citi placement.",
   github: "https://github.com/rjyot",
   githubHandle: "rjyot",
+  /**
+   * CV PDF is not in the repo. Leave null until a real file path exists.
+   * The hero shows `cvNote` and does not link a missing file.
+   */
+  cvHref: null as string | null,
+  cvNote: "TODO(Ryan)",
   /**
    * Email is not on the public profile. Leave null until a real address exists.
    * The contact section renders `emailPlaceholder` and does not invent a link.
    */
   email: null as string | null,
   emailPlaceholder: "PLACEHOLDER: email address",
+  emailNote: "TODO(Ryan)",
+  /** A real photo can sit under the hero field. Leave null until the file exists. */
+  skyline: null as string | null,
+  skylineNote: "TODO(Ryan): a Belfast skyline photo under this field.",
   about: [
     "The space between an idea and a usable product.",
     "I built Brewstige, a loyalty app for small cafés that points you to the quieter ones.",
@@ -134,13 +146,13 @@ export const site = {
       id: "open",
       label: "Open to",
       value: "July 2027",
-      hint: "Summer internships, UK and Ireland",
+      hint: "from July 2027, UK and Ireland",
     },
     {
-      id: "team",
-      label: "Brewstige team",
-      value: "TODO(Ryan)",
-      hint: "Confirm the number before publishing",
+      id: "belfast",
+      label: "Based in",
+      value: "Belfast",
+      hint: "Northern Ireland",
     },
   ] satisfies Fact[],
   projects: [

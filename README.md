@@ -28,7 +28,7 @@ Search for `PLACEHOLDER` and `TODO(Ryan)`. Replace those strings with real copy.
 
 Facts already filled in come from the public GitHub profile. The only GitHub URL on the site is [github.com/rjyot](https://github.com/rjyot). Other repositories are private, so project pages do not link to them. Brewstige is the Expo / React Native café app. LeetCode patterns and the Arabic word of the day live in [`src/content/learning.ts`](src/content/learning.ts).
 
-To publish an email, set `email` in `site.ts` to the address. Until then the contact section does not invent a mailto link.
+To publish an email, set `email` in `site.ts` to the address. Until then the hero and contact section show `TODO(Ryan)` and do not invent a mailto link. Set `cvHref` to a real PDF path before the CV link goes live. Set `skyline` to a photo path when a Belfast picture exists. The hero keeps the flat navy field until then.
 
 ## Motion
 

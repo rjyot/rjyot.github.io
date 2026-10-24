@@ -265,8 +265,13 @@
       },
       { passive: true },
     );
+    function startDraw() {
+      if (frame || !visible || root.dataset.motion !== "on") return;
+      frame = window.requestAnimationFrame(draw);
+    }
     var watcher = new IntersectionObserver(function (entries) {
       visible = entries[0] ? entries[0].isIntersecting : false;
+      startDraw();
     });
     watcher.observe(host);
 
@@ -275,8 +280,11 @@
 
     function draw(now) {
       if (root.dataset.motion !== "on") return;
+      if (!visible) {
+        frame = 0;
+        return;
+      }
       frame = window.requestAnimationFrame(draw);
-      if (!visible) return;
       current[0] += (mouse[0] - current[0]) * 0.08;
       current[1] += (mouse[1] - current[1]) * 0.08;
       gl.uniform1f(uTime, (now - start) / 1000);
@@ -286,7 +294,7 @@
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.POINTS, 0, count);
     }
-    frame = window.requestAnimationFrame(draw);
+    startDraw();
     fieldStop = function () {
       window.cancelAnimationFrame(frame);
       watcher.disconnect();

@@ -1,3 +1,5 @@
+import { site } from "@/content/site";
+
 const DOTS = Array.from({ length: 86 }, (_, index) => {
   const count = 86;
   const golden = Math.PI * (3 - Math.sqrt(5));
@@ -34,14 +36,23 @@ export function StaticField() {
 
 export function HeroCanvasSlot() {
   return (
-    <div
-      data-hero-field
-      className="relative h-[30vh] border-t border-line bg-ink lg:h-auto lg:min-h-[100svh] lg:border-t-0 lg:border-l"
-      aria-hidden="true"
-    >
-      <div className="absolute inset-0">
-        <StaticField />
+    <div className="relative h-[30vh] border-t border-line bg-ink lg:h-auto lg:min-h-[100svh] lg:border-t-0 lg:border-l">
+      <div data-hero-field className="absolute inset-0" aria-hidden="true">
+        {site.skyline ? (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url("${site.skyline}")` }}
+          />
+        ) : null}
+        <div className="absolute inset-0">
+          <StaticField />
+        </div>
       </div>
+      {site.skyline ? null : (
+        <p className="absolute inset-x-0 bottom-0 z-10 bg-ink px-5 py-3 text-lg text-amber">
+          {site.skylineNote}
+        </p>
+      )}
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { site } from "@/content/site";
@@ -12,15 +10,10 @@ export function About() {
           <div>
             <div className="relative max-w-[240px] pb-3 pr-3">
               <div className="absolute top-3 left-3 h-full w-full bg-blue" aria-hidden="true" />
-              <Image
-                src="/ryan-avatar.png"
-                alt="Portrait of Ryan Jyothis"
-                width={420}
-                height={420}
-                className="relative aspect-square w-full object-cover"
-              />
+              <div className="relative flex aspect-square w-full items-end bg-ink p-4">
+                <p className="text-lg text-amber">TODO(Ryan): a real photo.</p>
+              </div>
             </div>
-            <p className="mt-4 max-w-[240px] text-lg text-amber">TODO(Ryan): a photo that is clearly you.</p>
           </div>
         </Reveal>
         <div>
