@@ -1,21 +1,36 @@
 /**
- * Fail the production build if shipped HTML still shows drafts,
- * TODO(Ryan) markers, or copy that a flag has turned off.
+ * Fail the production build if TODO(Ryan), draft copy, or flagged-off
+ * content appears anywhere in the shipped output: HTML, JSON, or OG images.
  */
+import { execFileSync } from "node:child_process";
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
 const outDir = path.join(root, "out");
 
-function htmlFiles(dir) {
+function filesUnder(dir, extensions) {
   const files = [];
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) files.push(...htmlFiles(full));
-    else if (entry.name.endsWith(".html")) files.push(full);
+    if (entry.isDirectory()) files.push(...filesUnder(full, extensions));
+    else if (extensions.some((extension) => entry.name.endsWith(extension))) files.push(full);
   }
   return files;
+}
+
+function readOutput(file) {
+  if (file.endsWith(".png")) {
+    const text = execFileSync("tesseract", [file, "stdout", "--psm", "6"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    if (text.trim().length < 8) {
+      throw new Error(`could not read text from ${file}`);
+    }
+    return text;
+  }
+  return readFileSync(file, "utf8");
 }
 
 function flagOff(file, name) {
@@ -36,7 +51,7 @@ function visibleText(html) {
 
 const alwaysForbidden = [
   /TODO\(Ryan\)/i,
-  /\bPLACEHOLDER\b/i,
+  /\bPLACEHOLDER\b/,
   /Needs copy/i,
   /built the Supabase backend/i,
   /\bMEng\b/,
@@ -63,6 +78,15 @@ if (flagOff("src/content/fitness.ts", "showFootball")) {
 }
 if (flagOff("src/content/fitness.ts", "showSessionCount")) {
   flagged.push([/\b4 sessions\b/, "session count"]);
+  flagged.push([/Volume per session/i, "session chart"]);
+  flagged.push([/Bar chart of weight lifted per gym session/i, "session chart"]);
+  flagged.push([/3,374|\b3374\b/, "session chart"]);
+  flagged.push([/2,870|\b2870\b/, "session chart"]);
+  flagged.push([/3,377|\b3377\b/, "session chart"]);
+  flagged.push([/\b14 Oct\b/i, "session chart"]);
+  flagged.push([/\b14 October\b/i, "session chart"]);
+  flagged.push([/\b16 October\b/i, "session chart"]);
+  flagged.push([/\b23 October\b/i, "session chart"]);
 }
 if (flagOff("src/content/fitness.ts", "showChestPressGoal")) {
   flagged.push([/75 kg/i, "chest-press goal"]);
@@ -83,19 +107,22 @@ if (flagOff("src/content/learning.ts", "showCounts")) {
 }
 
 const failures = [];
-for (const file of htmlFiles(outDir)) {
-  const raw = readFileSync(file, "utf8");
-  const text = visibleText(raw);
+const outputs = [
+  ...filesUnder(outDir, [".html", ".json"]),
+  ...filesUnder(path.join(outDir, "og"), [".png"]),
+];
+for (const file of outputs) {
+  const raw = readOutput(file);
+  const text = file.endsWith(".html") ? `${raw}\n${visibleText(raw)}` : raw;
   const rel = path.relative(root, file);
   for (const pattern of alwaysForbidden) {
     if (pattern.test(text)) failures.push(`${rel} still contains ${pattern}`);
   }
-  if (/TODO\(Ryan\)/i.test(raw)) failures.push(`${rel} still contains TODO(Ryan)`);
   for (const pattern of bannerForbidden) {
-    if (pattern.test(raw)) failures.push(`${rel} still contains the dev banner (${pattern})`);
+    if (pattern.test(text)) failures.push(`${rel} still contains the dev banner (${pattern})`);
   }
   for (const [pattern, label] of flagged) {
-    if (pattern.test(text)) failures.push(`${rel} still contains flagged-off ${label}`);
+    if (pattern.test(text)) failures.push(`${rel} still contains flagged-off ${label} (${pattern})`);
   }
 }
 
@@ -105,4 +132,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`production guard passed (${htmlFiles(outDir).length} html files)`);
+console.log(`production guard passed (${outputs.length} html, json, and og files)`);

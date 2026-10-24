@@ -28,6 +28,9 @@ export const fitness = {
     count: 4,
     volumeKg: 14811,
     volumeCaption: "Total kg moved in October",
+    /** Used only while `showSessionCount` is on. Off means the chart is not rendered. */
+    chartLabel:
+      "Bar chart of weight lifted per gym session in October 2026: 3,374 kg on 14 October, 2,870 kg on 16 October, 5,190 kg on 20 October and 3,377 kg on 23 October, 14,811 kg in total.",
     sessions: [
       { date: "2026-10-14", volumeKg: 3374 },
       { date: "2026-10-16", volumeKg: 2870 },

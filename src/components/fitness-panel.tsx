@@ -35,42 +35,44 @@ export function FitnessPanel() {
           ) : isDev ? (
             <p className="mt-3 text-lg text-amber">TODO(Ryan): session count</p>
           ) : null}
-          <figure className="mt-5" aria-label="Volume per session (kg)">
-            <figcaption className="text-lg font-semibold text-paper">Volume per session (kg)</figcaption>
-            <ul aria-hidden="true" className="mt-4 flex items-end gap-3">
-              {october.sessions.map((session) => (
-                <li key={session.date} className="flex min-w-0 flex-1 flex-col justify-end">
-                  <span
-                    className="block bg-blue"
-                    style={{ height: `${Math.round((session.volumeKg / peak) * 96)}px` }}
-                  />
-                  <span className="mt-2 text-lg text-muted">
-                    {session.volumeKg.toLocaleString("en-GB")}
-                  </span>
-                  <time className="text-lg text-muted" dateTime={session.date}>
-                    {sessionDate(session.date)}
-                  </time>
-                </li>
-              ))}
-            </ul>
-            <table className="sr-only">
-              <caption>Volume per session (kg)</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Date</th>
-                  <th scope="col">Volume (kg)</th>
-                </tr>
-              </thead>
-              <tbody>
+          {fitnessConfig.showSessionCount ? (
+            <figure className="mt-5" aria-label={october.chartLabel}>
+              <figcaption className="text-lg font-semibold text-paper">Volume per session (kg)</figcaption>
+              <ul aria-hidden="true" className="mt-4 flex items-end gap-3">
                 {october.sessions.map((session) => (
-                  <tr key={session.date}>
-                    <td>{sessionDate(session.date)}</td>
-                    <td>{session.volumeKg.toLocaleString("en-GB")}</td>
-                  </tr>
+                  <li key={session.date} className="flex min-w-0 flex-1 flex-col justify-end">
+                    <span
+                      className="block bg-blue"
+                      style={{ height: `${Math.round((session.volumeKg / peak) * 96)}px` }}
+                    />
+                    <span className="mt-2 text-lg text-muted">
+                      {session.volumeKg.toLocaleString("en-GB")}
+                    </span>
+                    <time className="text-lg text-muted" dateTime={session.date}>
+                      {sessionDate(session.date)}
+                    </time>
+                  </li>
                 ))}
-              </tbody>
-            </table>
-          </figure>
+              </ul>
+              <table className="sr-only">
+                <caption>Volume per session (kg)</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Volume (kg)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {october.sessions.map((session) => (
+                    <tr key={session.date}>
+                      <td>{sessionDate(session.date)}</td>
+                      <td>{session.volumeKg.toLocaleString("en-GB")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </figure>
+          ) : null}
         </article>
 
         {lifts.map((lift) => (
