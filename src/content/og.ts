@@ -1,5 +1,6 @@
 import cards from "@/content/og-cards.json";
 import { site } from "@/content/site";
+import { published } from "@/lib/publish";
 
 export type OgCard = (typeof cards)[number];
 
@@ -15,6 +16,6 @@ export function ogImage(id: string) {
     url: `${site.origin}/og/${card.file}`,
     width: 1200,
     height: 630,
-    alt: card.alt,
+    alt: published(card.alt) ?? "Ryan Jyothis",
   };
 }

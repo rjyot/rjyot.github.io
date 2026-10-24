@@ -290,7 +290,8 @@ export const site = {
       title: null,
       dates: "PLACEHOLDER: start and end dates",
       location: "PLACEHOLDER: office location",
-      summary: "TODO(Ryan): what to say about this placement. Do not guess the work or a job title.",
+      // Do not guess the work or a job title.
+      summary: "TODO(Ryan): what to say about this placement.",
       href: "https://www.citi.com",
     },
     {

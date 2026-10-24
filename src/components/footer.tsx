@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { isDev } from "@/lib/publish";
 
 export function Footer() {
   return (
@@ -10,7 +11,8 @@ export function Footer() {
           <a href={site.github} className="text-blue-bright underline underline-offset-4">
             rjyot profile
           </a>
-          . Other repositories stay private. PLACEHOLDER and TODO(Ryan) lines are waiting on Ryan.
+          . Other repositories stay private.
+          {isDev ? " PLACEHOLDER and TODO(Ryan) lines are waiting on Ryan." : ""}
         </p>
       </div>
     </footer>

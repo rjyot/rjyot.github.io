@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0 --port 4317",
-    "build": "python3 scripts/render-og.py && next build && node scripts/strip-next-runtime.mjs",
+    "build": "python3 scripts/render-og.py && next build && node scripts/strip-next-runtime.mjs && node scripts/guard-production.mjs",
     "start": "next start --hostname 0.0.0.0 --port 4317",
     "lint": "eslint"
   },

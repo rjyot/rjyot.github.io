@@ -18,7 +18,9 @@ npm run lint
 npm run build
 ```
 
-`npm run build` writes a static site to `out/`. It also draws the Open Graph images from `src/content/og-cards.json` with `scripts/render-og.py`: one flat navy template, a big white title, a small tag underneath, and `ryan · rjyot` in the corner. The Experience tag stays `TODO(Ryan)`. Social tags use the absolute origin in `site.origin` (`https://rjyot.github.io`). Change that string if the public host is different.
+`npm run build` writes a static site to `out/`. It also draws the Open Graph images from `src/content/og-cards.json` with `scripts/render-og.py`: one flat navy template, a big white title, a small tag underneath, and `ryan · rjyot` in the corner. Social tags use the absolute origin in `site.origin` (`https://rjyot.github.io`). Change that string if the public host is different.
+
+`TODO(Ryan)` markers, placeholder copy, and anything a flag has turned off stay visible in `npm run dev`, under a small banner that lists the open TODOs. The production build strips that copy, and `scripts/guard-production.mjs` fails the build if any of it is still in the HTML.
 
 The GitHub heatmap is fetched at build time from the public contribution API and written into the page and `/api/github-contributions.json`. No token is used. If that fetch fails, the card falls back to a link. Pinned repositories are not shown. The chest-press goal stays out of the build until `showChestPressGoal` in `src/content/fitness.ts` is set to true and `ChestPressGoal` is rendered. Pattern statuses are saved to `status-history/` on each build. "Patterns moved up this week" stays hidden until a week of those snapshots exists. The Brewstige café-owner count, letter of interest, and paying client stay hidden until `showCafeClaims` in `src/content/site.ts` is set to true.
 

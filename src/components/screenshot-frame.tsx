@@ -1,6 +1,8 @@
+import { isDev } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
 export function ScreenshotFrame({ note, shape = "wide" }: { note: string; shape?: "wide" | "phone" }) {
+  if (!isDev) return null;
   return (
     <div
       className={cn(

@@ -2,6 +2,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Paragraph, TextValue } from "@/components/text-value";
 import { isPlaceholder, site } from "@/content/site";
+import { published } from "@/lib/publish";
 
 export function Experience({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   return (
@@ -26,16 +27,20 @@ export function Experience({ heading = "h2" }: { heading?: "h1" | "h2" }) {
                       item.org
                     )}
                   </h3>
-                  {item.title ? (
-                    <p className={item.title.includes("TODO(Ryan)") ? "mt-2 text-amber" : "mt-2 text-paper"}>
-                      {item.title}
+                  {published(item.title) ? (
+                    <p className={item.title?.includes("TODO(Ryan)") ? "mt-2 text-amber" : "mt-2 text-paper"}>
+                      {published(item.title)}
                     </p>
                   ) : null}
-                  <p className="mt-2 text-lg text-muted">
-                    <TextValue value={item.dates} />
-                    <span aria-hidden="true"> · </span>
-                    <TextValue value={item.location} />
-                  </p>
+                  {published(item.dates) || published(item.location) ? (
+                    <p className="mt-2 text-lg text-muted">
+                      {published(item.dates) ? <TextValue value={item.dates} /> : null}
+                      {published(item.dates) && published(item.location) ? (
+                        <span aria-hidden="true"> · </span>
+                      ) : null}
+                      {published(item.location) ? <TextValue value={item.location} /> : null}
+                    </p>
+                  ) : null}
                   <Paragraph value={item.summary} className="mt-4 max-w-[38rem]" />
                 </article>
               </Reveal>
@@ -47,12 +52,16 @@ export function Experience({ heading = "h2" }: { heading?: "h1" | "h2" }) {
           {site.awards.map((award) => (
             <Reveal key={award.id}>
               <article className="h-full border border-line bg-ink p-6">
-                <p className="text-lg font-semibold text-amber">
-                  {isPlaceholder(award.when) ? <TextValue value={award.when} /> : award.when}
-                </p>
+                {published(award.when) ? (
+                  <p className="text-lg font-semibold text-amber">
+                    {isPlaceholder(award.when) ? <TextValue value={award.when} /> : award.when}
+                  </p>
+                ) : null}
                 <h3 className="mt-3 font-display text-3xl font-extrabold tracking-tight">{award.event}</h3>
                 <p className="mt-3">{award.result}</p>
-                <p className="mt-3 max-w-[36rem] text-muted">{award.detail}</p>
+                {published(award.detail) ? (
+                  <p className="mt-3 max-w-[36rem] text-muted">{published(award.detail)}</p>
+                ) : null}
               </article>
             </Reveal>
           ))}

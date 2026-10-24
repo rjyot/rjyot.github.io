@@ -4,11 +4,14 @@ import { notFound } from "next/navigation";
 import { WorkArticle } from "@/components/work-article";
 import { ogCard, ogImage } from "@/content/og";
 import { getProject, isPlaceholder, site } from "@/content/site";
+import { published } from "@/lib/publish";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return site.projects.map((project) => ({ slug: project.slug }));
+  return site.projects
+    .filter((project) => process.env.NODE_ENV === "development" || !project.placeholder)
+    .map((project) => ({ slug: project.slug }));
 }
 
 type WorkPageProps = { params: Promise<{ slug: string }> };
@@ -20,28 +23,28 @@ export async function generateMetadata(props: WorkPageProps): Promise<Metadata> 
 
   const card = ogCard(project.slug);
   const image = ogImage(project.slug);
-  const description = isPlaceholder(project.summary)
-    ? `${project.name} is listed on Ryan Jyothis's site. The summary is not written yet.`
-    : project.summary;
+  const title = published(card.title) ?? published(project.name) ?? "Project";
+  const description =
+    published(isPlaceholder(project.summary) ? card.tag : project.summary) ?? title;
   const url = `${site.origin}/work/${project.slug}/`;
 
   return {
-    title: project.name,
+    title,
     description,
     alternates: { canonical: url },
     openGraph: {
       type: "article",
       locale: "en_GB",
       siteName: site.name,
-      title: card.title,
-      description: card.tag,
+      title,
+      description,
       url,
       images: [image],
     },
     twitter: {
       card: "summary_large_image",
-      title: card.title,
-      description: card.tag,
+      title,
+      description,
       images: [image.url],
     },
   };

@@ -4,20 +4,26 @@ import { SectionHeading } from "@/components/section-heading";
 import { NeedsCopy, Paragraph, TextValue } from "@/components/text-value";
 import { buttonVariants } from "@/components/ui/button-styles";
 import { isPlaceholder, site, type Project } from "@/content/site";
+import { isDev, published } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
 export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
+  const projects = site.projects.filter((project) => isDev || !project.placeholder);
   return (
     <section id="projects" tabIndex={-1} className="bg-ink py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <SectionHeading
           index="04"
           title="Projects"
-          lede="Brewstige and Zeto are the projects on record. The third card is an open slot."
+          lede={
+            isDev
+              ? "Brewstige and Zeto are the projects on record. The third card is an open slot."
+              : "Brewstige and Zeto are the projects on record."
+          }
           as={heading}
         />
         <ul className="mb-8 flex flex-wrap gap-x-6 gap-y-2">
-          {site.projects.map((project) => (
+          {projects.map((project) => (
             <li key={project.slug}>
               <a
                 href={`/work/${project.slug}/`}
@@ -35,7 +41,7 @@ export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
           <span data-gallery-index className="font-display text-lg font-semibold text-amber">
             01
           </span>
-          <span className="text-lg text-muted">/ {String(site.projects.length).padStart(2, "0")}</span>
+          <span className="text-lg text-muted">/ {String(projects.length).padStart(2, "0")}</span>
           <div className="h-0.5 flex-1 bg-line" aria-hidden="true">
             <div data-gallery-bar className="h-full origin-left bg-blue" style={{ transform: "scaleX(0)" }} />
           </div>
@@ -48,7 +54,7 @@ export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
         </div>
         <div className="project-viewport" data-gallery-viewport>
           <div className="project-track px-5 md:px-10 lg:px-0">
-            {site.projects.map((project, index) => (
+            {projects.map((project, index) => (
               <ProjectCard key={project.slug} project={project} index={index} />
             ))}
           </div>
@@ -77,7 +83,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <ProjectTitle project={project} as="h3" />
         </a>
       </div>
-      {project.screenshotNote ? (
+      {isDev && project.screenshotNote ? (
         <div className="mt-6">
           <ScreenshotFrame note={project.screenshotNote} />
         </div>
@@ -85,7 +91,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       <Paragraph value={project.summary} className="mt-6 max-w-[32rem]" />
       <Paragraph value={project.context} className="mt-3 max-w-[32rem] text-muted" />
       <ul className="mt-6 flex flex-wrap gap-2">
-        {project.stack.map((item) => (
+        {project.stack.filter((item) => published(item)).map((item) => (
           <li key={item} className="border border-line px-3 py-1 text-lg">
             {isPlaceholder(item) ? <NeedsCopy /> : item}
           </li>

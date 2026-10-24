@@ -1,6 +1,7 @@
 import { HeroCanvasSlot } from "@/components/static-field";
 import { buttonVariants } from "@/components/ui/button-styles";
 import { site } from "@/content/site";
+import { published } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
 export function Hero() {
@@ -19,7 +20,7 @@ export function Hero() {
         <p className="hero-headline mt-4 max-w-[18ch] text-2xl font-semibold leading-snug text-paper lg:text-3xl">
           {site.tagline}
         </p>
-        <p className="mt-4 max-w-xl text-lg text-amber">{site.citiLine}</p>
+        <p className="mt-4 max-w-xl text-lg text-amber">{published(site.citiLine)}</p>
         <p className="mt-2 max-w-xl text-lg">
           <a href="/work/brewstige/" className="font-semibold text-blue-bright underline underline-offset-4">
             {site.proof}
@@ -31,7 +32,7 @@ export function Hero() {
             href={site.cvHref ?? "/#contact"}
             className="font-semibold text-blue-bright underline underline-offset-4"
           >
-            {site.cvHref ? "CV PDF" : `CV PDF · ${site.cvNote}`}
+            {site.cvHref ? "CV PDF" : published(`CV PDF · ${site.cvNote}`)}
           </a>
           <a href={site.github} className="font-semibold text-blue-bright underline underline-offset-4">
             GitHub
@@ -40,7 +41,7 @@ export function Hero() {
             href={site.email ? `mailto:${site.email}` : "/#contact"}
             className="font-semibold text-blue-bright underline underline-offset-4"
           >
-            {site.email ? "Email" : `Email · ${site.emailNote}`}
+            {site.email ? "Email" : published(`Email · ${site.emailNote}`)}
           </a>
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-3">

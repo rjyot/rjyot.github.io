@@ -3,21 +3,30 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { belfastPhotos } from "@/content/photos";
 import { site } from "@/content/site";
+import { isDev, published } from "@/lib/publish";
 
 export function About({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   return (
     <section id="about" tabIndex={-1} className="bg-panel px-5 py-20 md:px-10 md:py-28">
-      <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-16">
-        <Reveal>
-          <div>
-            <div className="relative max-w-[240px] pb-3 pr-3">
-              <div className="absolute top-3 left-3 h-full w-full bg-blue" aria-hidden="true" />
-              <div className="relative flex aspect-square w-full items-end bg-ink p-4">
-                <p className="text-lg text-amber">TODO(Ryan): a real photo.</p>
+      <div
+        className={
+          isDev
+            ? "mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-16"
+            : "mx-auto grid max-w-6xl items-start gap-10"
+        }
+      >
+        {isDev ? (
+          <Reveal>
+            <div>
+              <div className="relative max-w-[240px] pb-3 pr-3">
+                <div className="absolute top-3 left-3 h-full w-full bg-blue" aria-hidden="true" />
+                <div className="relative flex aspect-square w-full items-end bg-ink p-4">
+                  <p className="text-lg text-amber">TODO(Ryan): a real photo.</p>
+                </div>
               </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        ) : null}
         <div>
           <SectionHeading index="02" title="About" className="mb-5" as={heading} />
           <div className="rise max-w-[38rem] space-y-4">
@@ -40,7 +49,9 @@ export function About({ heading = "h2" }: { heading?: "h1" | "h2" }) {
       </div>
 
       <dl className="mx-auto mt-14 grid max-w-6xl gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
-        {site.facts.map((fact) => (
+        {site.facts
+          .filter((fact) => isDev || published(fact.value))
+          .map((fact) => (
           <div key={fact.id} className="bg-panel px-5 py-6">
             <dt className="text-lg text-muted">{fact.label}</dt>
             <dd

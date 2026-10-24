@@ -7,6 +7,7 @@ Fonts: Noto Sans Display and Inter, both SIL Open Font License 1.1.
 """
 
 import json
+import re
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -24,6 +25,17 @@ MUTED = (201, 214, 232)
 WIDTH = 1200
 HEIGHT = 630
 TEXT_WIDTH = 1040
+
+
+def clean(text):
+    """Production cards never draw TODO or PLACEHOLDER copy."""
+    text = re.sub(r"TODO\(Ryan\)[^.]*(?:\.|$)", "", text)
+    text = re.sub(r"PLACEHOLDER:[^.]*(?:\.|$)", "", text, flags=re.I)
+    text = re.sub(r"\bPLACEHOLDER\b", "", text, flags=re.I)
+    text = re.sub(r"\s+", " ", text).strip(" .·")
+    if re.search(r"TODO\(Ryan\)|PLACEHOLDER", text, re.I):
+        raise SystemExit(f"Open Graph text still contains a draft marker: {text}")
+    return text
 
 
 def wrap(text, font, max_width):
@@ -56,16 +68,18 @@ def fit_title(title):
 
 
 def render(card):
+    title = clean(card["title"]) or "Ryan Jyothis"
+    tag = clean(card["tag"])
     image = Image.new("RGB", (WIDTH, HEIGHT), INK)
     draw = ImageDraw.Draw(image)
-    font, lines, size = fit_title(card["title"])
+    font, lines, size = fit_title(title)
     y = 128
     for line in lines:
         draw.text((72, y), line, font=font, fill=WHITE)
         y += int(size * 1.08)
     y += 36
     tag_font = ImageFont.truetype(SANS_PATH, 34)
-    for line in wrap(card["tag"], tag_font, TEXT_WIDTH):
+    for line in wrap(tag, tag_font, TEXT_WIDTH):
         draw.text((72, y), line, font=tag_font, fill=TAG)
         y += 46
     foot = ImageFont.truetype(SANS_PATH, 26)

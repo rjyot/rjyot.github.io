@@ -7,6 +7,7 @@ import { learning, learningConfig, patternStatusLabel, type PatternStatus } from
 import { site } from "@/content/site";
 import { getGithubContributions } from "@/lib/github-contributions";
 import { patternsMovedUp, recordPatternSnapshot } from "@/lib/pattern-history";
+import { published } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
 const statusClass: Record<PatternStatus, string> = {
@@ -131,7 +132,9 @@ function ArabicCard() {
       <p data-arabic-meaning className="mt-1 text-lg text-muted">
         {word.english}
       </p>
-      <p className="mt-6 max-w-[36rem] text-lg text-amber">{learning.arabic.note}</p>
+      {published(learning.arabic.note) ? (
+        <p className="mt-6 max-w-[36rem] text-lg text-amber">{published(learning.arabic.note)}</p>
+      ) : null}
       {learning.arabic.activity ? (
         <ul className="mt-4 flex gap-1" aria-label="Arabic study days">
           {learning.arabic.activity.map((studied, index) => (

@@ -1,6 +1,7 @@
 import { SectionHeading } from "@/components/section-heading";
 import { NeedsCopy } from "@/components/text-value";
 import { site } from "@/content/site";
+import { isDev, published } from "@/lib/publish";
 
 export function Contact({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   return (
@@ -25,7 +26,9 @@ export function Contact({ heading = "h2" }: { heading?: "h1" | "h2" }) {
           <div className="flex flex-col gap-3 border-b border-line py-6 md:flex-row md:items-baseline md:justify-between">
             <div>
               <p className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">Email</p>
-              <p className="mt-2 max-w-xl">{site.email ?? site.emailPlaceholder}</p>
+              {site.email || (isDev && published(site.emailPlaceholder)) ? (
+                <p className="mt-2 max-w-xl">{site.email ?? published(site.emailPlaceholder)}</p>
+              ) : null}
             </div>
             {site.email ? (
               <a href={`mailto:${site.email}`} className="text-lg text-blue-bright underline underline-offset-4">

@@ -3,6 +3,7 @@ import { ScreenshotFrame } from "@/components/screenshot-frame";
 import { Paragraph, TextValue } from "@/components/text-value";
 import { buttonVariants } from "@/components/ui/button-styles";
 import { publicProjectHref, type Project } from "@/content/site";
+import { isDev, published } from "@/lib/publish";
 
 export function WorkArticle({ project }: { project: Project }) {
   const href = publicProjectHref(project.href);
@@ -19,7 +20,7 @@ export function WorkArticle({ project }: { project: Project }) {
         <div className="mt-3">
           <ProjectTitle project={project} as="h1" />
         </div>
-        {project.screenshotNote ? (
+        {isDev && project.screenshotNote ? (
           <div className="mt-8">
             <ScreenshotFrame note={project.screenshotNote} shape="phone" />
           </div>
@@ -27,25 +28,29 @@ export function WorkArticle({ project }: { project: Project }) {
         {project.contribution ? (
           <Paragraph value={project.contribution} className="mt-8 max-w-[38rem]" />
         ) : null}
-        {project.contributionNote ? (
-          <p className="mt-4 max-w-[38rem] text-lg text-amber">{project.contributionNote}</p>
+        {published(project.contributionNote) ? (
+          <p className="mt-4 max-w-[38rem] text-lg text-amber">{published(project.contributionNote)}</p>
         ) : null}
         <Paragraph
           value={project.summary}
           className={project.contribution ? "mt-4 max-w-[38rem]" : "mt-8 max-w-[38rem]"}
         />
         <Paragraph value={project.context} className="mt-4 max-w-[38rem] text-muted" />
-        <p className="mt-6 text-lg">
-          <span className="text-muted">Year. </span>
-          <TextValue value={project.year} />
-        </p>
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {project.stack.map((item) => (
-            <li key={item} className="border border-line px-3 py-1 text-lg">
-              <TextValue value={item} />
-            </li>
-          ))}
-        </ul>
+        {published(project.year) ? (
+          <p className="mt-6 text-lg">
+            <span className="text-muted">Year. </span>
+            <TextValue value={project.year} />
+          </p>
+        ) : null}
+        {project.stack.some((item) => published(item)) ? (
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {project.stack.filter((item) => published(item)).map((item) => (
+              <li key={item} className="border border-line px-3 py-1 text-lg">
+                <TextValue value={item} />
+              </li>
+            ))}
+          </ul>
+        ) : null}
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <p className="text-lg text-muted">
             {href ? "External link." : "Private repository. This page does not link to code."}

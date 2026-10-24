@@ -1,4 +1,5 @@
 import { fitness, fitnessConfig } from "@/content/fitness";
+import { isDev } from "@/lib/publish";
 
 function sessionDate(iso: string) {
   return new Intl.DateTimeFormat("en-GB", {
@@ -16,9 +17,9 @@ export function FitnessPanel() {
     <div id="fitness" tabIndex={-1} className="border-t-4 border-blue bg-ink p-6">
       <h3 className="font-display text-3xl font-extrabold tracking-tight">Fitness</h3>
       <p className="mt-4 max-w-[40rem] text-lg text-paper">{line}</p>
-      {fitnessConfig.showFootball ? null : (
+      {!fitnessConfig.showFootball && isDev ? (
         <p className="mt-2 text-lg text-amber">TODO(Ryan): football</p>
-      )}
+      ) : null}
       <p className="mt-2 max-w-[40rem] text-lg text-muted">{approach}</p>
       <p className="mt-4 text-lg text-muted">
         <time dateTime={fitness.asOf}>{updatedLabel}</time>
@@ -31,9 +32,9 @@ export function FitnessPanel() {
             october.count > 0 ? (
               <p className="mt-3 font-display text-5xl font-extrabold tracking-tight">{october.count}</p>
             ) : null
-          ) : (
+          ) : isDev ? (
             <p className="mt-3 text-lg text-amber">TODO(Ryan): session count</p>
-          )}
+          ) : null}
           <figure className="mt-5" aria-label="Volume per session (kg)">
             <figcaption className="text-lg font-semibold text-paper">Volume per session (kg)</figcaption>
             <ul aria-hidden="true" className="mt-4 flex items-end gap-3">

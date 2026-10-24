@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Lexend, Noto_Sans_Arabic } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { DevTodoBanner } from "@/components/dev-todo-banner";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { ogCard, ogImage } from "@/content/og";
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Nav />
         {children}
         <Footer />
+        <DevTodoBanner />
         <script src="/enhance.js" defer />
       </body>
     </html>
