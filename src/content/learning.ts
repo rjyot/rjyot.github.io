@@ -75,6 +75,11 @@ export const learning = {
       { transliteration: "ma' as-salame", english: "goodbye", arabic: "مع السلامة", dir: "rtl", lang: "apc" },
     ] satisfies ArabicWord[],
     note: "TODO(Ryan): glance over before launch. Arabic script was added for the site. The deck itself is transliteration only.",
+    /**
+     * Activity dots stay hidden until a real Arabic row exists.
+     * Do not back-fill days before 24 Oct 2026.
+     */
+    activity: null as boolean[] | null,
   },
 } as const;
 

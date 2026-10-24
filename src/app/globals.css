@@ -48,7 +48,9 @@ h4 {
 }
 
 section[id],
-main[id] {
+main[id],
+#brewstige,
+#fitness {
   scroll-margin-top: 5.5rem;
 }
 

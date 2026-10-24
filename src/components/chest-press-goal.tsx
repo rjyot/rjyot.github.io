@@ -1,12 +1,17 @@
-import { fitness, fitnessConfig } from "@/content/fitness";
+import { chestPressGoal } from "@/content/fitness-goal";
+import { fitnessConfig } from "@/content/fitness";
 
 const radius = 54;
 const circumference = 2 * Math.PI * radius;
 
+/**
+ * Only render this after `showChestPressGoal` is true.
+ * The fitness panel does not import it while the flag is off.
+ */
 export function ChestPressGoal() {
   if (!fitnessConfig.showChestPressGoal) return null;
 
-  const { label, start, current, target, unit, deadline } = fitness.goal;
+  const { label, start, current, target, unit, deadline } = chestPressGoal;
   const span = target - start;
   const progress = span > 0 ? Math.min(1, Math.max(0, (current - start) / span)) : 0;
   const drawn = circumference * progress;

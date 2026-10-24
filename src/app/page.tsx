@@ -11,8 +11,8 @@ export default function HomePage() {
     <main id="content">
       <Hero />
       <About />
-      <Projects />
       <Experience />
+      <Projects />
       <Skills />
       <Now />
       <Contact />

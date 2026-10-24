@@ -201,19 +201,19 @@ export const site = {
       id: "session",
       label: "One session",
       value: "5,190 kg",
-      hint: "57 min, 20 Oct 2026",
+      hint: "20 Oct 2026",
     },
     {
       id: "gym",
       label: "Gym",
-      value: "3 days a week",
-      hint: "Tue, Thu, Sun",
+      value: "4 sessions",
+      hint: "October",
     },
     {
       id: "football",
       label: "Football",
       value: "Twice a week",
-      hint: "Mon, Wed",
+      hint: "Playing",
     },
     {
       id: "arabic",
@@ -282,6 +282,7 @@ export const site = {
       id: "citi",
       kind: "work",
       org: "Citi",
+      /** Neutral until Ryan writes it. Do not say production or regulated. */
       title: null,
       dates: "PLACEHOLDER: start and end dates",
       location: "PLACEHOLDER: office location",
@@ -329,12 +330,6 @@ export const site = {
   ] satisfies SkillGroup[],
   now: [
     {
-      id: "gym",
-      title: "Gym",
-      status: "5,190 kg in one session, 57 minutes, 20 Oct 2026.",
-      detail: "Three days a week: Tue, Thu, and Sun.",
-    },
-    {
       id: "github-goal",
       title: "GitHub",
       status: "A contribution every day until 31 Dec 2026.",
@@ -373,8 +368,8 @@ export const githubStreak: { days: number; asOf: string } | null = null;
 
 export const nav = [
   { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "now", label: "Now" },
   { id: "contact", label: "Contact" },

@@ -11,7 +11,7 @@ export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
     <section id="projects" tabIndex={-1} className="bg-ink py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <SectionHeading
-          index="03"
+          index="04"
           title="Projects"
           lede="Brewstige and Zeto are the projects on record. The third card is an open slot."
           as={heading}
@@ -61,7 +61,8 @@ export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <article
-      id={`project-${project.slug}`}
+      id={project.slug === "brewstige" ? "brewstige" : `project-${project.slug}`}
+      tabIndex={project.slug === "brewstige" ? -1 : undefined}
       className={cn(
         "project-card flex min-h-[28rem] flex-col bg-panel p-6 md:p-8",
         project.placeholder ? "border border-dashed border-amber" : "card-offset",

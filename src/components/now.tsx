@@ -1,4 +1,4 @@
-import { ChestPressGoal } from "@/components/chest-press-goal";
+import { FitnessPanel } from "@/components/fitness-panel";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { StreakWidget } from "@/components/streak-widget";
@@ -6,6 +6,7 @@ import { Paragraph } from "@/components/text-value";
 import { learning, learningConfig, patternStatusLabel, type PatternStatus } from "@/content/learning";
 import { site } from "@/content/site";
 import { getGithubContributions } from "@/lib/github-contributions";
+import { patternsMovedUp, recordPatternSnapshot } from "@/lib/pattern-history";
 import { cn } from "@/lib/utils";
 
 const statusClass: Record<PatternStatus, string> = {
@@ -17,6 +18,8 @@ const statusClass: Record<PatternStatus, string> = {
 export async function Now({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   const { leetcode } = learning;
   const activity = await getGithubContributions();
+  recordPatternSnapshot(learning.snapshot);
+  const movedUp = patternsMovedUp(learning.snapshot);
 
   return (
     <section id="now" tabIndex={-1} className="bg-panel px-5 py-20 md:px-10 md:py-28">
@@ -31,11 +34,14 @@ export async function Now({ heading = "h2" }: { heading?: "h1" | "h2" }) {
 
         <StreakWidget activity={activity} />
 
+        <div className="mt-4">
+          <FitnessPanel />
+        </div>
+
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <Reveal>
             <ArabicCard />
           </Reveal>
-          <ChestPressGoal />
           {site.now.map((item) => (
             <Reveal key={item.id}>
               <article className="flex h-full flex-col border-t-4 border-blue bg-ink p-6">
@@ -66,6 +72,9 @@ export async function Now({ heading = "h2" }: { heading?: "h1" | "h2" }) {
               {leetcode.cardsSeen}/{leetcode.cardsTotal} cards seen.
             </p>
           ) : null}
+          {movedUp === null ? null : (
+            <p className="mt-4 max-w-[40rem] text-lg">Patterns moved up this week: {movedUp}.</p>
+          )}
           <p className="mt-4 max-w-[40rem] text-lg text-muted">{learning.masteredRule}</p>
           <ul className="mt-4 flex flex-wrap gap-3 text-lg">
             <li className="border border-blue px-3 py-1">Learning</li>
@@ -123,6 +132,16 @@ function ArabicCard() {
         {word.english}
       </p>
       <p className="mt-6 max-w-[36rem] text-lg text-amber">{learning.arabic.note}</p>
+      {learning.arabic.activity ? (
+        <ul className="mt-4 flex gap-1" aria-label="Arabic study days">
+          {learning.arabic.activity.map((studied, index) => (
+            <li
+              key={index}
+              className={studied ? "h-3 w-3 bg-amber" : "h-3 w-3 bg-line"}
+            />
+          ))}
+        </ul>
+      ) : null}
       <script dangerouslySetInnerHTML={{ __html: boot }} />
     </article>
   );

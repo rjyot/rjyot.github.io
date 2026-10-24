@@ -7,7 +7,7 @@ export function Experience({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   return (
     <section id="experience" tabIndex={-1} className="bg-panel px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading index="04" title="Experience" lede="Work, Queen's, and two hackathons." as={heading} />
+        <SectionHeading index="03" title="Experience" lede="Work, Queen's, and two hackathons." as={heading} />
 
         <ol className="relative space-y-10 border-l-2 border-blue pl-6 md:pl-10">
           {site.timeline.map((item) => (

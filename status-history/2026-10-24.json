@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-24",
+  "patterns": [
+    {
+      "number": 1,
+      "status": "learning"
+    },
+    {
+      "number": 2,
+      "status": "not_started"
+    },
+    {
+      "number": 3,
+      "status": "not_started"
+    },
+    {
+      "number": 4,
+      "status": "not_started"
+    },
+    {
+      "number": 5,
+      "status": "not_started"
+    },
+    {
+      "number": 6,
+      "status": "not_started"
+    },
+    {
+      "number": 7,
+      "status": "not_started"
+    },
+    {
+      "number": 8,
+      "status": "not_started"
+    },
+    {
+      "number": 9,
+      "status": "not_started"
+    },
+    {
+      "number": 10,
+      "status": "not_started"
+    },
+    {
+      "number": 11,
+      "status": "not_started"
+    },
+    {
+      "number": 12,
+      "status": "not_started"
+    },
+    {
+      "number": 13,
+      "status": "not_started"
+    },
+    {
+      "number": 14,
+      "status": "not_started"
+    },
+    {
+      "number": 15,
+      "status": "not_started"
+    },
+    {
+      "number": 16,
+      "status": "not_started"
+    },
+    {
+      "number": 17,
+      "status": "not_started"
+    },
+    {
+      "number": 18,
+      "status": "not_started"
+    },
+    {
+      "number": 19,
+      "status": "not_started"
+    },
+    {
+      "number": 20,
+      "status": "not_started"
+    },
+    {
+      "number": 21,
+      "status": "not_started"
+    }
+  ]
+}
