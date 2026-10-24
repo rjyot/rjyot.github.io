@@ -10,6 +10,7 @@ export function CreditedPhoto({ photo }: { photo: PhotoCredit }) {
         width={photo.width}
         height={photo.height}
         unoptimized
+        fetchPriority="low"
         className="h-auto w-full"
       />
       <figcaption className="space-y-2 px-5 py-4 text-lg">

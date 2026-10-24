@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""One Open Graph template: flat navy, a small tag, a big title.
+"""One Open Graph template.
 
-No gradient, no photo, no avatar. The domain line stays TODO(Ryan).
+Flat navy field, big white title, small tag underneath, ryan · rjyot in the corner.
+No gradient, no photo, no avatar.
 Fonts: Noto Sans Display and Inter, both SIL Open Font License 1.1.
 """
 
@@ -13,47 +14,69 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[1]
 CARDS = json.loads((ROOT / "src/content/og-cards.json").read_text())
 OUT = ROOT / "public" / "og"
-TAG = ImageFont.truetype(ROOT / "assets/fonts/Inter-Medium.ttf", 28)
-FOOT = ImageFont.truetype(ROOT / "assets/fonts/Inter-Medium.ttf", 26)
+DISPLAY_PATH = ROOT / "assets/fonts/NotoSansDisplay-Bold.ttf"
+SANS_PATH = ROOT / "assets/fonts/Inter-Medium.ttf"
 
 INK = (7, 17, 28)
-BLUE = (61, 126, 255)
-TAG_COLOR = (183, 208, 255)
-PAPER = (244, 247, 251)
+WHITE = (255, 255, 255)
+TAG = (183, 208, 255)
 MUTED = (201, 214, 232)
 WIDTH = 1200
 HEIGHT = 630
+TEXT_WIDTH = 1040
 
 
-def draw_tracked(draw, origin, text, font, fill, tracking):
-    x, y = origin
-    for character in text:
-        draw.text((x, y), character, font=font, fill=fill)
-        x += font.getlength(character) + tracking
+def wrap(text, font, max_width):
+    words = text.split()
+    lines = []
+    current = ""
+    for word in words:
+        trial = word if not current else f"{current} {word}"
+        if font.getlength(trial) <= max_width:
+            current = trial
+        else:
+            if current:
+                lines.append(current)
+            current = word
+    if current:
+        lines.append(current)
+    return lines
 
 
-def title_font(title):
-    size = 108 if len(title) <= 16 else 88 if len(title) <= 28 else 72
-    return ImageFont.truetype(ROOT / "assets/fonts/NotoSansDisplay-Bold.ttf", size)
+def fit_title(title):
+    size = 96
+    while size >= 52:
+        font = ImageFont.truetype(DISPLAY_PATH, size)
+        lines = wrap(title, font, TEXT_WIDTH)
+        if len(lines) <= 3:
+            return font, lines, size
+        size -= 4
+    font = ImageFont.truetype(DISPLAY_PATH, 52)
+    return font, wrap(title, font, TEXT_WIDTH), 52
 
 
 def render(card):
     image = Image.new("RGB", (WIDTH, HEIGHT), INK)
     draw = ImageDraw.Draw(image)
-    draw.rectangle((0, 0, 18, HEIGHT), fill=BLUE)
-    draw_tracked(draw, (80, 168), card["tag"], TAG, TAG_COLOR, 6)
-    font = title_font(card["title"])
-    draw.text((80, 230), card["title"], font=font, fill=PAPER)
-    draw.text((80, 548), "ryan · TODO(Ryan)", font=FOOT, fill=MUTED)
-    # The field behind the type stays one flat colour.
-    for y in (20, 300, 610):
-        if image.getpixel((40, y)) != INK:
-            raise SystemExit(f"{card['id']} background is not flat navy")
-    if image.getpixel((8, 300)) != BLUE:
-        raise SystemExit(f"{card['id']} accent bar is not flat blue")
+    font, lines, size = fit_title(card["title"])
+    y = 128
+    for line in lines:
+        draw.text((72, y), line, font=font, fill=WHITE)
+        y += int(size * 1.08)
+    y += 36
+    tag_font = ImageFont.truetype(SANS_PATH, 34)
+    for line in wrap(card["tag"], tag_font, TEXT_WIDTH):
+        draw.text((72, y), line, font=tag_font, fill=TAG)
+        y += 46
+    foot = ImageFont.truetype(SANS_PATH, 26)
+    label = "ryan · rjyot"
+    draw.text((WIDTH - 72 - foot.getlength(label), 560), label, font=foot, fill=MUTED)
+    for sample_y in (24, 300, 610):
+        if image.getpixel((36, sample_y)) != INK:
+            raise SystemExit(f"{card['id']} background is not a flat colour")
     path = OUT / card["file"]
     image.save(path, "PNG")
-    print(path.relative_to(ROOT), image.size)
+    print(path.relative_to(ROOT), image.size, f"title {size}px", f"{len(lines)} lines")
 
 
 def main():

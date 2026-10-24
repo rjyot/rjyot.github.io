@@ -6,7 +6,7 @@ import { buttonVariants } from "@/components/ui/button-styles";
 import { isPlaceholder, site, type Project } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-export function Projects() {
+export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   return (
     <section id="projects" tabIndex={-1} className="bg-ink py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-10">
@@ -14,6 +14,7 @@ export function Projects() {
           index="03"
           title="Projects"
           lede="Brewstige and Zeto are the projects on record. The third card is an open slot."
+          as={heading}
         />
         <ul className="mb-8 flex flex-wrap gap-x-6 gap-y-2">
           {site.projects.map((project) => (

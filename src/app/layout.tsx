@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
-import { ogImage } from "@/content/og";
+import { ogCard, ogImage } from "@/content/og";
 import { site } from "@/content/site";
 
 import "./globals.css";
@@ -37,6 +37,7 @@ const arabic = Noto_Sans_Arabic({
 });
 
 const title = "Ryan Jyothis · Software Engineering";
+const homeCard = ogCard("home");
 const homeImage = ogImage("home");
 
 export const metadata: Metadata = {
@@ -53,15 +54,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     siteName: site.name,
-    title,
-    description: site.description,
+    title: homeCard.title,
+    description: homeCard.tag,
     url: `${site.origin}/`,
     images: [homeImage],
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description: site.description,
+    title: homeCard.title,
+    description: homeCard.tag,
     images: [homeImage.url],
   },
 };

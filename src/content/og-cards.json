@@ -2,36 +2,71 @@
   {
     "id": "home",
     "file": "home.png",
-    "tag": "HOME",
-    "title": "Ryan Jyothis",
-    "alt": "Ryan Jyothis. Home."
+    "tag": "Software engineering student in Belfast",
+    "title": "I build apps. I break them too.",
+    "alt": "I build apps. I break them too. Software engineering student in Belfast."
+  },
+  {
+    "id": "about",
+    "file": "about.png",
+    "tag": "Builder, lifter, language learner",
+    "title": "Hi, I'm Ryan.",
+    "alt": "Hi, I'm Ryan. Builder, lifter, language learner."
+  },
+  {
+    "id": "projects",
+    "file": "projects.png",
+    "tag": "Hackathons, workshops and team builds",
+    "title": "Things I've built",
+    "alt": "Things I've built. Hackathons, workshops and team builds."
   },
   {
     "id": "brewstige",
     "file": "brewstige.png",
-    "tag": "PROJECT",
+    "tag": "Café app built in 36 hours",
     "title": "Brewstige",
-    "alt": "Brewstige. Project by Ryan Jyothis."
+    "alt": "Brewstige. Café app built in 36 hours. HackBelfast 2026 runner-up, Real World Impact."
   },
   {
     "id": "zeto",
     "file": "zeto.png",
-    "tag": "PROJECT",
+    "tag": "Internship tracker for students. TODO(Ryan): confirm",
     "title": "Zeto",
-    "alt": "Zeto. Project by Ryan Jyothis."
+    "alt": "Zeto. Internship tracker for students. TODO(Ryan): confirm."
   },
   {
     "id": "next",
     "file": "next.png",
-    "tag": "PROJECT",
+    "tag": "TODO(Ryan)",
     "title": "PLACEHOLDER",
-    "alt": "Open project slot on Ryan Jyothis's site."
+    "alt": "Open project slot. TODO(Ryan)."
+  },
+  {
+    "id": "experience",
+    "file": "experience.png",
+    "tag": "TODO(Ryan)",
+    "title": "Where I've worked",
+    "alt": "Where I've worked. TODO(Ryan)."
+  },
+  {
+    "id": "now",
+    "file": "now.png",
+    "tag": "Last updated 24 Oct 2026",
+    "title": "What I'm doing now",
+    "alt": "What I'm doing now. Last updated 24 Oct 2026."
+  },
+  {
+    "id": "contact",
+    "file": "contact.png",
+    "tag": "Open to internships from July 2027",
+    "title": "Let's talk",
+    "alt": "Let's talk. Open to internships from July 2027."
   },
   {
     "id": "404",
     "file": "404.png",
-    "tag": "404",
-    "title": "Page not found",
-    "alt": "Page not found on Ryan Jyothis's site."
+    "tag": "Not on purpose this time",
+    "title": "I broke this page.",
+    "alt": "I broke this page. Not on purpose this time."
   }
 ]

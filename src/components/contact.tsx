@@ -2,11 +2,11 @@ import { SectionHeading } from "@/components/section-heading";
 import { NeedsCopy } from "@/components/text-value";
 import { site } from "@/content/site";
 
-export function Contact() {
+export function Contact({ heading = "h2" }: { heading?: "h1" | "h2" }) {
   return (
     <section id="contact" tabIndex={-1} className="bg-ink px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading index="07" title="Contact" lede={site.contactNote} />
+        <SectionHeading index="07" title="Contact" lede={site.contactNote} as={heading} />
         <div className="border-t border-line">
           {site.contact.map((link) => (
             <a

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { WorkArticle } from "@/components/work-article";
-import { ogImage } from "@/content/og";
+import { ogCard, ogImage } from "@/content/og";
 import { getProject, isPlaceholder, site } from "@/content/site";
 
 export const dynamicParams = false;
@@ -18,10 +18,11 @@ export async function generateMetadata(props: WorkPageProps): Promise<Metadata> 
   const project = getProject(slug);
   if (!project) return { title: "Project" };
 
+  const card = ogCard(project.slug);
+  const image = ogImage(project.slug);
   const description = isPlaceholder(project.summary)
     ? `${project.name} is listed on Ryan Jyothis's site. The summary is not written yet.`
     : project.summary;
-  const pageTitle = `${project.name} · Ryan Jyothis`;
   const url = `${site.origin}/work/${project.slug}/`;
 
   return {
@@ -32,16 +33,16 @@ export async function generateMetadata(props: WorkPageProps): Promise<Metadata> 
       type: "article",
       locale: "en_GB",
       siteName: site.name,
-      title: pageTitle,
-      description,
+      title: card.title,
+      description: card.tag,
       url,
-      images: [ogImage(project.slug)],
+      images: [image],
     },
     twitter: {
       card: "summary_large_image",
-      title: pageTitle,
-      description,
-      images: [ogImage(project.slug).url],
+      title: card.title,
+      description: card.tag,
+      images: [image.url],
     },
   };
 }

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 
 import { buttonVariants } from "@/components/ui/button-styles";
-import { ogImage } from "@/content/og";
+import { ogCard, ogImage } from "@/content/og";
 import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-const title = "Page not found";
-const description = "That page is not on Ryan Jyothis's site.";
+const card = ogCard("404");
+const image = ogImage("404");
+const title = card.title;
+const description = card.tag;
 
 export const metadata: Metadata = {
   title,
@@ -20,13 +22,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     siteName: site.name,
-    images: [ogImage("404")],
+    images: [image],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: [ogImage("404").url],
+    images: [image.url],
   },
 };
 
@@ -38,7 +40,7 @@ export default function NotFound() {
         tabIndex={-1}
         className="mt-3 max-w-xl font-display text-5xl font-extrabold leading-none tracking-tight md:text-7xl"
       >
-        That page is not here.
+        I broke this page.
       </h1>
       <p className="mt-6 max-w-md">The link might be old. The work lives on the home page.</p>
       <a href="/" className={cn(buttonVariants({ size: "lg" }), "mt-8")}>

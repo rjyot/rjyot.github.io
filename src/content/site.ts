@@ -106,8 +106,15 @@ export const site = {
   role: "Software Engineering student",
   tagline: "I build apps. I break them too.",
   study: "Software Engineering, Queen's University Belfast (2024–present).",
+  /** First screen. No degree title and no year. */
+  who: "Software Engineering student, Queen's University Belfast",
   location: "Belfast, Northern Ireland",
-  availability: "Summer 2027 internships, from July 2027",
+  availability: "Summer 2027 internships from July 2027, UK and Ireland",
+  /** Neutral. The job title stays off the page. */
+  citiLine: "Citi. TODO(Ryan): what to say about this placement.",
+  proof:
+    "Brewstige, Hack Belfast runner-up for Best Real World Impact.",
+  updatedLabel: "Last updated 24 Oct 2026",
   github: "https://github.com/rjyot",
   githubHandle: "rjyot",
   /**
@@ -117,13 +124,14 @@ export const site = {
   origin: "https://rjyot.github.io",
   /**
    * CV PDF is not in the repo. Leave null until a real file path exists.
-   * The hero shows `cvNote` and does not link a missing file.
+   * Until then the hero link keeps `cvNote` and goes to the contact section.
    */
   cvHref: null as string | null,
   cvNote: "TODO(Ryan)",
   /**
    * Email is not on the public profile. Leave null until a real address exists.
-   * The contact section renders `emailPlaceholder` and does not invent a link.
+   * Until then the hero link keeps `emailNote` and goes to the contact section.
+   * The contact section renders `emailPlaceholder` and does not invent an address.
    */
   email: null as string | null,
   emailPlaceholder: "PLACEHOLDER: email address",
