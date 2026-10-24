@@ -36,6 +36,17 @@ function visibleText(html) {
 
 const alwaysForbidden = [/TODO\(Ryan\)/i, /\bPLACEHOLDER\b/i, /Needs copy/i];
 
+const bannerForbidden = [
+  /data-dev-banner/,
+  /things still need Ryan/,
+  /thing still needs Ryan/,
+  /Nothing left for Ryan/,
+  /Hidden on the live site/,
+  /Hide for now/,
+  /Show list/,
+  /Hide list/,
+];
+
 const flagged = [];
 if (flagOff("src/content/fitness.ts", "showFootball")) {
   flagged.push([/playing football/i, "football copy"]);
@@ -61,10 +72,15 @@ if (flagOff("src/content/learning.ts", "showCounts")) {
 
 const failures = [];
 for (const file of htmlFiles(outDir)) {
-  const text = visibleText(readFileSync(file, "utf8"));
+  const raw = readFileSync(file, "utf8");
+  const text = visibleText(raw);
   const rel = path.relative(root, file);
   for (const pattern of alwaysForbidden) {
     if (pattern.test(text)) failures.push(`${rel} still contains ${pattern}`);
+  }
+  if (/TODO\(Ryan\)/i.test(raw)) failures.push(`${rel} still contains TODO(Ryan)`);
+  for (const pattern of bannerForbidden) {
+    if (pattern.test(raw)) failures.push(`${rel} still contains the dev banner (${pattern})`);
   }
   for (const [pattern, label] of flagged) {
     if (pattern.test(text)) failures.push(`${rel} still contains flagged-off ${label}`);
