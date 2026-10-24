@@ -6,14 +6,22 @@
  * fitness-goal.ts and is left out of the build while the flag is off.
  */
 
-export const fitnessConfig: { showChestPressGoal: boolean } = {
+export const fitnessConfig = {
   showChestPressGoal: false,
-};
+  /** Football stays off the page until Ryan confirms it. */
+  showFootball: false,
+  /** The public session count stays off until Ryan confirms it. */
+  showSessionCount: false,
+} as const;
+
+const fitnessLine = fitnessConfig.showFootball
+  ? "Lifting, playing football, logging every rep."
+  : "Lifting and logging every rep.";
 
 export const fitness = {
   asOf: "2026-10-23",
   updatedLabel: "Updated 23 Oct",
-  line: "Lifting, playing football, logging every rep.",
+  line: fitnessLine,
   approach: "Same approach as code: log it, measure it, ship a little more each week.",
   october: {
     label: "Gym sessions in October",

@@ -15,6 +15,8 @@
  * Study line: Software Engineering, Queen's University Belfast (2024–present).
  */
 
+import { fitnessConfig } from "@/content/fitness";
+
 export type Project = {
   slug: string;
   name: string;
@@ -167,7 +169,9 @@ export const site = {
     "The space between an idea and a usable product is where I like to work.",
     "I'm Ryan, a Software Engineering student at Queen's University Belfast.",
     "I co-founded Brewstige and led the frontend, a loyalty app for small cafés that points you to quieter ones.",
-    "Outside code, I lift, play football, and learn Arabic.",
+    fitnessConfig.showFootball
+      ? "Outside code, I lift, play football, and learn Arabic."
+      : "Outside code, I lift and learn Arabic.",
     "I'm after a software engineering internship from July 2027.",
   ],
   /** 27-word About, used as the meta description. */
@@ -206,14 +210,14 @@ export const site = {
     {
       id: "gym",
       label: "Gym",
-      value: "4 sessions",
-      hint: "October",
+      value: fitnessConfig.showSessionCount ? "4 sessions" : "TODO(Ryan)",
+      hint: fitnessConfig.showSessionCount ? "October" : "Session count",
     },
     {
       id: "football",
       label: "Football",
-      value: "Twice a week",
-      hint: "Playing",
+      value: fitnessConfig.showFootball ? "Twice a week" : "TODO(Ryan)",
+      hint: fitnessConfig.showFootball ? "Playing" : "Not confirmed",
     },
     {
       id: "arabic",

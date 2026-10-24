@@ -1,28 +1,42 @@
-import { fitness } from "@/content/fitness";
+import { fitness, fitnessConfig } from "@/content/fitness";
+
+function sessionDate(iso: string) {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  }).format(new Date(`${iso}T00:00:00Z`));
+}
 
 export function FitnessPanel() {
   const { line, approach, updatedLabel, october, lifts } = fitness;
   const peak = Math.max(...october.sessions.map((session) => session.volumeKg));
-  const showSessions = october.count > 0;
 
   return (
     <div id="fitness" tabIndex={-1} className="border-t-4 border-blue bg-ink p-6">
       <h3 className="font-display text-3xl font-extrabold tracking-tight">Fitness</h3>
       <p className="mt-4 max-w-[40rem] text-lg text-paper">{line}</p>
+      {fitnessConfig.showFootball ? null : (
+        <p className="mt-2 text-lg text-amber">TODO(Ryan): football</p>
+      )}
       <p className="mt-2 max-w-[40rem] text-lg text-muted">{approach}</p>
       <p className="mt-4 text-lg text-muted">
         <time dateTime={fitness.asOf}>{updatedLabel}</time>
       </p>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        {showSessions ? (
-          <article className="border border-line p-5">
-            <h4 className="text-lg font-semibold text-blue-bright">{october.label}</h4>
-            <p className="mt-3 font-display text-5xl font-extrabold tracking-tight">{october.count}</p>
-            <p className="mt-4 text-lg text-paper">
-              {october.volumeKg.toLocaleString("en-GB")} kg. {october.volumeCaption}.
-            </p>
-            <ul className="mt-5 flex items-end gap-3" aria-label="Session volumes, in kilograms">
+        <article className="border border-line p-5">
+          <h4 className="text-lg font-semibold text-blue-bright">{october.label}</h4>
+          {fitnessConfig.showSessionCount ? (
+            october.count > 0 ? (
+              <p className="mt-3 font-display text-5xl font-extrabold tracking-tight">{october.count}</p>
+            ) : null
+          ) : (
+            <p className="mt-3 text-lg text-amber">TODO(Ryan): session count</p>
+          )}
+          <figure className="mt-5" aria-label="Volume per session (kg)">
+            <figcaption className="text-lg font-semibold text-paper">Volume per session (kg)</figcaption>
+            <ul aria-hidden="true" className="mt-4 flex items-end gap-3">
               {october.sessions.map((session) => (
                 <li key={session.date} className="flex min-w-0 flex-1 flex-col justify-end">
                   <span
@@ -33,17 +47,31 @@ export function FitnessPanel() {
                     {session.volumeKg.toLocaleString("en-GB")}
                   </span>
                   <time className="text-lg text-muted" dateTime={session.date}>
-                    {new Intl.DateTimeFormat("en-GB", {
-                      day: "numeric",
-                      month: "short",
-                      timeZone: "UTC",
-                    }).format(new Date(`${session.date}T00:00:00Z`))}
+                    {sessionDate(session.date)}
                   </time>
                 </li>
               ))}
             </ul>
-          </article>
-        ) : null}
+            <table className="sr-only">
+              <caption>Volume per session (kg)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Volume (kg)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {october.sessions.map((session) => (
+                  <tr key={session.date}>
+                    <td>{sessionDate(session.date)}</td>
+                    <td>{session.volumeKg.toLocaleString("en-GB")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </figure>
+        </article>
+
         {lifts.map((lift) => (
           <article key={lift.name} className="border border-line p-5">
             <h4 className="text-lg font-semibold text-blue-bright">{lift.name}</h4>
@@ -57,6 +85,13 @@ export function FitnessPanel() {
             ))}
           </article>
         ))}
+
+        <article className="border border-line p-5">
+          <h4 className="text-lg font-semibold text-blue-bright">Volume</h4>
+          <p className="mt-3 font-display text-4xl font-extrabold tracking-tight">
+            {october.volumeKg.toLocaleString("en-GB")} kg moved in October
+          </p>
+        </article>
       </div>
     </div>
   );
