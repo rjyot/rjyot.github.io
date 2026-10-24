@@ -22,7 +22,6 @@ export function About() {
             {site.about.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-            <p>{site.study}</p>
           </div>
         </div>
       </div>

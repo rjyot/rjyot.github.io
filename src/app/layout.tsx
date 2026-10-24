@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     default: "Ryan Jyothis · Software Engineering",
     template: "%s · Ryan Jyothis",
   },
-  description: `${site.tagline} ${site.study} ${site.availability}. UK and Ireland.`,
+  description: site.description,
   authors: [{ name: site.name, url: site.github }],
   applicationName: site.name,
 };

@@ -123,11 +123,15 @@ export const site = {
   skyline: null as string | null,
   skylineNote: "TODO(Ryan): a Belfast skyline photo under this field.",
   about: [
-    "The space between an idea and a usable product.",
-    "I built Brewstige, a loyalty app for small cafés that points you to the quieter ones.",
-    "A lot of that starts at hackathons, including Hack Belfast.",
-    "Off the screen I lift, play football and volleyball, and learn Arabic.",
+    "The space between an idea and a usable product is where I like to work.",
+    "I'm Ryan, a Software Engineering student at Queen's University Belfast.",
+    "I built Brewstige, a loyalty app for small cafés that points you to quieter ones.",
+    "Outside code, I lift, play football and volleyball, and learn Arabic.",
+    "I'm after a software engineering internship from July 2027.",
   ],
+  /** 27-word About, used as the meta description. */
+  description:
+    "The space between an idea and a usable product is where I like to work. Software Engineering at Queen's, Belfast. Open to internships from July 2027.",
   /**
    * Stats strip. Only sourced lines belong here.
    * Off the strip until Ryan confirms them: Brewstige team size, a 75 kg goal,
