@@ -34,7 +34,15 @@ function visibleText(html) {
   return `${text} ${labelled.join(" ")}`.replace(/\s+/g, " ");
 }
 
-const alwaysForbidden = [/TODO\(Ryan\)/i, /\bPLACEHOLDER\b/i, /Needs copy/i];
+const alwaysForbidden = [
+  /TODO\(Ryan\)/i,
+  /\bPLACEHOLDER\b/i,
+  /Needs copy/i,
+  /built the Supabase backend/i,
+  /\bMEng\b/,
+  /\bBEng\b/,
+  /\b2029\b/,
+];
 
 const bannerForbidden = [
   /data-dev-banner/,
@@ -59,6 +67,10 @@ if (flagOff("src/content/fitness.ts", "showSessionCount")) {
 if (flagOff("src/content/fitness.ts", "showChestPressGoal")) {
   flagged.push([/75 kg/i, "chest-press goal"]);
   flagged.push([/chest press goal/i, "chest-press goal"]);
+}
+if (flagOff("src/content/site.ts", "showRealWorldImpact")) {
+  flagged.push([/Best Real World Impact/i, "hack award"]);
+  flagged.push([/runner-up/i, "hack award"]);
 }
 if (flagOff("src/content/site.ts", "showCafeClaims")) {
   flagged.push([/13 Belfast café owners/i, "café claims"]);

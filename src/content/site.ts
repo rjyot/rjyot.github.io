@@ -76,23 +76,34 @@ export type Fact = {
 };
 
 /**
- * Café-owner count, letter of interest, and paying client stay off the page
- * until Ryan sets this to true.
+ * Café claims and the Hack Belfast runner-up line stay off until Ryan confirms them.
  */
-export const brewstigeConfig: { showCafeClaims: boolean } = {
+export const brewstigeConfig = {
   showCafeClaims: false,
+  showRealWorldImpact: false,
 };
 
 const brewstigeCafeClaims =
   "During the same 36 hours I talked to 13 Belfast café owners and came away with a letter of interest and a paying client.";
 
 const brewstigeWork =
-  "Since then I've worked on getting the mobile app release-ready. I fixed the Android camera permission so QR scanning works (KAN-23), brought the app onto its Expo SDK 57 baseline with a single required CI check, and got expo-doctor passing. I also removed the old web MVP, tightened Supabase permissions to least privilege, stopped featured stickers leaking between accounts on a shared phone, hid Apple sign-in until it's set up, and wrote the café go-live content standard.";
+  "Since then I've worked on getting the mobile app release-ready. My part is the Supabase least-privilege hardening, Apple sign-in, and the Android camera fix: I tightened Supabase permissions to least privilege, hid Apple sign-in until it's set up, and fixed the Android camera permission so QR scanning works (KAN-23). I brought the app onto its Expo SDK 57 baseline with a single required CI check, and got expo-doctor passing. I also removed the old web MVP, stopped featured stickers leaking between accounts on a shared phone, and wrote the café go-live content standard.";
 
 function brewstigeContribution() {
   const lead = "I co-founded Brewstige and led the frontend at HackBelfast 2026.";
   if (!brewstigeConfig.showCafeClaims) return `${lead} ${brewstigeWork}`;
   return `${lead} ${brewstigeCafeClaims} ${brewstigeWork}`;
+}
+
+function brewstigeContext() {
+  const base = "With two collaborators. Hack Belfast, a 36-hour hackathon.";
+  if (!brewstigeConfig.showRealWorldImpact) return base;
+  return `${base} Runner-up for Best Real World Impact.`;
+}
+
+function hackAwardResult() {
+  if (brewstigeConfig.showRealWorldImpact) return "Runner-up, Best Real World Impact";
+  return "TODO(Ryan): Best Real World Impact, runner-up";
 }
 
 function brewstigeContributionNote() {
@@ -141,8 +152,13 @@ export const site = {
   availability: "Summer 2027 internships from July 2027, UK and Ireland",
   /** Neutral. The job title stays off the page. */
   citiLine: "Citi. TODO(Ryan): what to say about this placement.",
-  proof:
-    "Brewstige, Hack Belfast runner-up for Best Real World Impact.",
+  proof: brewstigeConfig.showRealWorldImpact
+    ? "Brewstige, Hack Belfast runner-up for Best Real World Impact."
+    : "Brewstige, from a 36-hour hackathon.",
+  /** Shown in dev while the runner-up line is flagged off. */
+  proofTodo: brewstigeConfig.showRealWorldImpact
+    ? null
+    : "TODO(Ryan): Best Real World Impact, runner-up",
   updatedLabel: "Last updated 24 Oct 2026",
   github: "https://github.com/rjyot",
   githubHandle: "rjyot",
@@ -245,8 +261,7 @@ export const site = {
       summary: "A loyalty app for small cafés that points you to quieter ones.",
       contribution: brewstigeContribution(),
       contributionNote: brewstigeContributionNote(),
-      context:
-        "With two collaborators. Hack Belfast, a 36-hour hackathon. Runner-up for Best Real World Impact.",
+      context: brewstigeContext(),
       stack: ["Expo", "React Native"],
       href: null,
       year: "PLACEHOLDER: year",
@@ -309,7 +324,7 @@ export const site = {
     {
       id: "hack-belfast",
       event: "Hack Belfast",
-      result: "Runner-up, Best Real World Impact",
+      result: hackAwardResult(),
       detail: "36-hour hackathon. The project was Brewstige. TODO(Ryan): Hack Belfast team size.",
       when: "PLACEHOLDER: year",
     },
@@ -329,7 +344,11 @@ export const site = {
       label: "Mobile",
       items: ["Expo", "Expo Router", "NativeWind", "Android"],
     },
-    { id: "backend", label: "Backend", items: ["Supabase"] },
+    {
+      id: "brewstige-work",
+      label: "On Brewstige",
+      items: ["Least-privilege Supabase", "Apple sign-in", "Android camera"],
+    },
     { id: "database", label: "Database", items: ["PostgreSQL"] },
     { id: "maps", label: "Maps", items: ["MapLibre"] },
   ] satisfies SkillGroup[],

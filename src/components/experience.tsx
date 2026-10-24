@@ -58,7 +58,11 @@ export function Experience({ heading = "h2" }: { heading?: "h1" | "h2" }) {
                   </p>
                 ) : null}
                 <h3 className="mt-3 font-display text-3xl font-extrabold tracking-tight">{award.event}</h3>
-                <p className="mt-3">{award.result}</p>
+                {published(award.result) ? (
+                  <p className={award.result.includes("TODO(Ryan)") ? "mt-3 text-amber" : "mt-3"}>
+                    {published(award.result)}
+                  </p>
+                ) : null}
                 {published(award.detail) ? (
                   <p className="mt-3 max-w-[36rem] text-muted">{published(award.detail)}</p>
                 ) : null}

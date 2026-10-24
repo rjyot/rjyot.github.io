@@ -26,6 +26,9 @@ export function Hero() {
             {site.proof}
           </a>
         </p>
+        {published(site.proofTodo) ? (
+          <p className="mt-2 max-w-xl text-lg text-amber">{published(site.proofTodo)}</p>
+        ) : null}
         <p className="mt-3 max-w-xl text-lg text-paper">{site.availability}.</p>
         <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-lg">
           <a
