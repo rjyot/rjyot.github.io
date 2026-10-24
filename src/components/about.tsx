@@ -1,5 +1,7 @@
+import { CreditedPhoto } from "@/components/credited-photo";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { belfastPhotos } from "@/content/photos";
 import { site } from "@/content/site";
 
 export function About() {
@@ -23,6 +25,17 @@ export function About() {
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-14 max-w-6xl">
+        <p className="max-w-[38rem] text-lg text-muted">
+          Photographs of Belfast. These are not pictures of Ryan, and they are not the app.
+        </p>
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
+          {belfastPhotos.map((photo) => (
+            <CreditedPhoto key={photo.id} photo={photo} />
+          ))}
         </div>
       </div>
 

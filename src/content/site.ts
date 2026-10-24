@@ -29,6 +29,8 @@ export type Project = {
   year: string;
   /** True when the card is an open slot, not a shipped project. */
   placeholder: boolean;
+  /** Set only when a real app screenshot is still missing. */
+  screenshotNote: string | null;
 };
 
 export type TimelineItem = {
@@ -126,9 +128,6 @@ export const site = {
   email: null as string | null,
   emailPlaceholder: "PLACEHOLDER: email address",
   emailNote: "TODO(Ryan)",
-  /** A real photo can sit under the hero field. Leave null until the file exists. */
-  skyline: null as string | null,
-  skylineNote: "TODO(Ryan): a Belfast skyline photo under this field.",
   about: [
     "The space between an idea and a usable product is where I like to work.",
     "I'm Ryan, a Software Engineering student at Queen's University Belfast.",
@@ -215,6 +214,7 @@ export const site = {
       href: null,
       year: "PLACEHOLDER: year",
       placeholder: false,
+      screenshotNote: "TODO(Ryan): app screenshot",
     },
     {
       slug: "zeto",
@@ -228,6 +228,7 @@ export const site = {
       href: null,
       year: "2026",
       placeholder: false,
+      screenshotNote: null,
     },
     {
       slug: "next",
@@ -240,6 +241,7 @@ export const site = {
       href: null,
       year: "PLACEHOLDER: year",
       placeholder: true,
+      screenshotNote: null,
     },
   ] satisfies Project[],
   timeline: [

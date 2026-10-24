@@ -1,4 +1,5 @@
 import { ProjectTitle } from "@/components/project-title";
+import { ScreenshotFrame } from "@/components/screenshot-frame";
 import { SectionHeading } from "@/components/section-heading";
 import { NeedsCopy, Paragraph, TextValue } from "@/components/text-value";
 import { buttonVariants } from "@/components/ui/button-styles";
@@ -74,6 +75,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <ProjectTitle project={project} as="h3" />
         </a>
       </div>
+      {project.screenshotNote ? (
+        <div className="mt-6">
+          <ScreenshotFrame note={project.screenshotNote} />
+        </div>
+      ) : null}
       <Paragraph value={project.summary} className="mt-6 max-w-[32rem]" />
       <Paragraph value={project.context} className="mt-3 max-w-[32rem] text-muted" />
       <ul className="mt-6 flex flex-wrap gap-2">

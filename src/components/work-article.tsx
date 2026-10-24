@@ -1,4 +1,5 @@
 import { ProjectTitle } from "@/components/project-title";
+import { ScreenshotFrame } from "@/components/screenshot-frame";
 import { Paragraph, TextValue } from "@/components/text-value";
 import { buttonVariants } from "@/components/ui/button-styles";
 import { publicProjectHref, type Project } from "@/content/site";
@@ -18,6 +19,11 @@ export function WorkArticle({ project }: { project: Project }) {
         <div className="mt-3">
           <ProjectTitle project={project} as="h1" />
         </div>
+        {project.screenshotNote ? (
+          <div className="mt-8">
+            <ScreenshotFrame note={project.screenshotNote} shape="phone" />
+          </div>
+        ) : null}
         {project.contribution ? (
           <Paragraph value={project.contribution} className="mt-8 max-w-[38rem]" />
         ) : null}
