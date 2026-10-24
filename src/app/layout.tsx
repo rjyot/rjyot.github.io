@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
+import { ogImage } from "@/content/og";
 import { site } from "@/content/site";
 
 import "./globals.css";
@@ -36,12 +37,7 @@ const arabic = Noto_Sans_Arabic({
 });
 
 const title = "Ryan Jyothis · Software Engineering";
-const ogImage = {
-  url: `${site.origin}/og.png`,
-  width: 1200,
-  height: 630,
-  alt: "Ryan Jyothis. I build apps. I break them too. Open to internships from July 2027.",
-};
+const homeImage = ogImage("home");
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.origin),
@@ -60,13 +56,13 @@ export const metadata: Metadata = {
     title,
     description: site.description,
     url: `${site.origin}/`,
-    images: [ogImage],
+    images: [homeImage],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description: site.description,
-    images: [ogImage.url],
+    images: [homeImage.url],
   },
 };
 

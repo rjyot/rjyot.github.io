@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { buttonVariants } from "@/components/ui/button-styles";
+import { ogImage } from "@/content/og";
 import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -19,20 +20,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     siteName: site.name,
-    images: [
-      {
-        url: `${site.origin}/og.png`,
-        width: 1200,
-        height: 630,
-        alt: "Ryan Jyothis. The page you asked for is not on this site.",
-      },
-    ],
+    images: [ogImage("404")],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: [`${site.origin}/og.png`],
+    images: [ogImage("404").url],
   },
 };
 

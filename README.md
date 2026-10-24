@@ -18,7 +18,9 @@ npm run lint
 npm run build
 ```
 
-`npm run build` writes a static site to `out/`. Social tags use the absolute origin in `site.origin` (`https://rjyot.github.io`). Change that string if the public host is different. The chest-press goal ring stays hidden until `showChestPressGoal` in `src/content/fitness.ts` is set to true.
+`npm run build` writes a static site to `out/`. It also draws the Open Graph images from `src/content/og-cards.json` with `scripts/render-og.py`: one flat navy template, a small tag, and a big title. The domain line on the image stays `TODO(Ryan)`. Social tags use the absolute origin in `site.origin` (`https://rjyot.github.io`). Change that string if the public host is different.
+
+The GitHub heatmap is fetched at build time from the public contribution API and written into the page and `/api/github-contributions.json`. No token is used. If that fetch fails, the card falls back to a link. Pinned repositories are not shown. The chest-press goal ring stays hidden until `showChestPressGoal` in `src/content/fitness.ts` is set to true.
 
 ## Edit the copy
 

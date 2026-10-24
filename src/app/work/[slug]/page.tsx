@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { WorkArticle } from "@/components/work-article";
+import { ogImage } from "@/content/og";
 import { getProject, isPlaceholder, site } from "@/content/site";
 
 export const dynamicParams = false;
@@ -34,20 +35,13 @@ export async function generateMetadata(props: WorkPageProps): Promise<Metadata> 
       title: pageTitle,
       description,
       url,
-      images: [
-        {
-          url: `${site.origin}/og.png`,
-          width: 1200,
-          height: 630,
-          alt: `${project.name}. A project by Ryan Jyothis. Open to internships from July 2027.`,
-        },
-      ],
+      images: [ogImage(project.slug)],
     },
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
       description,
-      images: [`${site.origin}/og.png`],
+      images: [ogImage(project.slug).url],
     },
   };
 }

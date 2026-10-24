@@ -1,0 +1,37 @@
+[
+  {
+    "id": "home",
+    "file": "home.png",
+    "tag": "HOME",
+    "title": "Ryan Jyothis",
+    "alt": "Ryan Jyothis. Home."
+  },
+  {
+    "id": "brewstige",
+    "file": "brewstige.png",
+    "tag": "PROJECT",
+    "title": "Brewstige",
+    "alt": "Brewstige. Project by Ryan Jyothis."
+  },
+  {
+    "id": "zeto",
+    "file": "zeto.png",
+    "tag": "PROJECT",
+    "title": "Zeto",
+    "alt": "Zeto. Project by Ryan Jyothis."
+  },
+  {
+    "id": "next",
+    "file": "next.png",
+    "tag": "PROJECT",
+    "title": "PLACEHOLDER",
+    "alt": "Open project slot on Ryan Jyothis's site."
+  },
+  {
+    "id": "404",
+    "file": "404.png",
+    "tag": "404",
+    "title": "Page not found",
+    "alt": "Page not found on Ryan Jyothis's site."
+  }
+]

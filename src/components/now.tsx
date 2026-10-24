@@ -5,6 +5,7 @@ import { StreakWidget } from "@/components/streak-widget";
 import { Paragraph } from "@/components/text-value";
 import { learning, learningConfig, patternStatusLabel, type PatternStatus } from "@/content/learning";
 import { site } from "@/content/site";
+import { getGithubContributions } from "@/lib/github-contributions";
 import { cn } from "@/lib/utils";
 
 const statusClass: Record<PatternStatus, string> = {
@@ -13,8 +14,9 @@ const statusClass: Record<PatternStatus, string> = {
   not_started: "border-line bg-ink",
 };
 
-export function Now() {
+export async function Now() {
   const { leetcode } = learning;
+  const activity = await getGithubContributions();
 
   return (
     <section id="now" tabIndex={-1} className="bg-panel px-5 py-20 md:px-10 md:py-28">
@@ -25,12 +27,11 @@ export function Now() {
           lede="LeetCode patterns, Levantine Arabic, the gym, and a GitHub goal through 31 Dec 2026."
         />
 
-        <div className="grid gap-4 lg:grid-cols-2">
+        <StreakWidget activity={activity} />
+
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <Reveal>
             <ArabicCard />
-          </Reveal>
-          <Reveal>
-            <StreakWidget />
           </Reveal>
           <ChestPressGoal />
           {site.now.map((item) => (
