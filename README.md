@@ -47,6 +47,10 @@ Calm mode skips smooth scroll, the custom cursor, the WebGL field, and the pinne
 
 ## Deploy
 
+### GitHub Pages
+
+This site is published from `main` by [`.github/workflows/pages.yml`](.github/workflows/pages.yml). The workflow installs Pillow and Tesseract, runs `npm run build`, and deploys the `out/` folder. In the repository, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. The public URL is [https://rjyot.github.io](https://rjyot.github.io).
+
 ### Vercel
 
 Import the repository. Framework preset: Next.js. The build command is `npm run build`. This project sets `output: "export"`, so Vercel serves the static `out/` directory. No environment variables are required.
