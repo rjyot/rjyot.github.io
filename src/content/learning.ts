@@ -1,8 +1,15 @@
 /**
- * Learning snapshot from Ryan's Anki decks (Flashcardmaster), 2026-10-24.
+ * Learning snapshot from Ryan's Anki decks, 2026-10-24.
  * Arabic script was added for the site. The deck itself is transliteration only.
  * TODO(Ryan): glance over the Arabic before launch.
+ *
+ * The page shows pattern names, statuses, and the Arabic words.
+ * Raw totals stay hidden unless `showCounts` is turned on.
+ * Goal dates and study times are never rendered.
  */
+export const learningConfig: { showCounts: boolean } = {
+  showCounts: false,
+};
 
 export type PatternStatus = "not_started" | "learning" | "mastered";
 
@@ -67,7 +74,7 @@ export const learning = {
       { transliteration: "'afwan", english: "you're welcome", arabic: "عفواً", dir: "rtl", lang: "apc" },
       { transliteration: "ma' as-salame", english: "goodbye", arabic: "مع السلامة", dir: "rtl", lang: "apc" },
     ] satisfies ArabicWord[],
-    note: "TODO(Ryan): glance over the Arabic script before launch. The deck itself is transliteration only.",
+    note: "TODO(Ryan): glance over before launch. Arabic script was added for the site. The deck itself is transliteration only.",
   },
 } as const;
 

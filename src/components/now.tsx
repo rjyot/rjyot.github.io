@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Paragraph } from "@/components/text-value";
-import { learning, patternStatusLabel, type PatternStatus } from "@/content/learning";
+import { learning, learningConfig, patternStatusLabel, type PatternStatus } from "@/content/learning";
 import { githubStreak, site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -69,11 +69,13 @@ export function Now() {
 
         <div className="mt-8 border-t-4 border-blue bg-ink p-6">
           <h3 className="font-display text-3xl font-extrabold tracking-tight">LeetCode patterns</h3>
-          <p className="mt-4 max-w-[40rem] text-lg">
-            {leetcode.total} patterns. {leetcode.started} learning. {leetcode.mastered} mastered.{" "}
-            {leetcode.cardsSeen} of {leetcode.cardsTotal} cards seen.
-          </p>
-          <p className="mt-2 max-w-[40rem] text-lg text-muted">{learning.masteredRule}</p>
+          {learningConfig.showCounts ? (
+            <p className="mt-4 max-w-[40rem] text-lg">
+              {leetcode.mastered}/{leetcode.total} mastered. {leetcode.started} learning.{" "}
+              {leetcode.cardsSeen}/{leetcode.cardsTotal} cards seen.
+            </p>
+          ) : null}
+          <p className="mt-4 max-w-[40rem] text-lg text-muted">{learning.masteredRule}</p>
           <ul className="mt-4 flex flex-wrap gap-3 text-lg">
             <li className="border border-blue px-3 py-1">Learning</li>
             <li className="border border-amber px-3 py-1">Mastered</li>
@@ -93,7 +95,6 @@ export function Now() {
               </li>
             ))}
           </ul>
-          <p className="mt-5 text-lg text-muted">Anki snapshot {learning.snapshot}.</p>
         </div>
       </div>
     </section>
@@ -111,10 +112,10 @@ function ArabicCard() {
         <span className="now-dot" aria-hidden="true" />
         <h3 className="font-display text-3xl font-extrabold tracking-tight">Arabic</h3>
       </div>
-      <p className="mt-4 text-lg text-paper">
-        {learning.arabic.dialect}. {learning.arabic.dailyGoalMinutes} minutes a day.{" "}
-        {learning.arabic.deckNotes} notes in the deck.
-      </p>
+      <p className="mt-4 text-lg text-paper">{learning.arabic.dialect}.</p>
+      {learningConfig.showCounts ? (
+        <p className="mt-2 text-lg text-muted">{learning.arabic.deckNotes} notes in the deck.</p>
+      ) : null}
       <p className="mt-6 text-lg font-semibold text-amber">Word of the day</p>
       <p
         dir={word.dir}
