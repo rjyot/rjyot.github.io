@@ -78,7 +78,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       <div className="flex items-center justify-between gap-4 text-lg">
         <span className="font-semibold text-amber">{String(index + 1).padStart(2, "0")}</span>
-        {isPlaceholder(project.year) ? <TextValue value={project.year} /> : <span>{project.year}</span>}
+        {project.year ? (
+          isPlaceholder(project.year) ? <TextValue value={project.year} /> : <span>{project.year}</span>
+        ) : null}
       </div>
       <div className="mt-8">
         <a href={`/work/${project.slug}/`} className="inline-block">
@@ -92,13 +94,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       ) : null}
       <Paragraph value={project.summary} className="mt-6 max-w-[32rem]" />
       <Paragraph value={project.context} className="mt-3 max-w-[32rem] text-muted" />
-      <ul className="mt-6 flex flex-wrap gap-2">
-        {project.stack.filter((item) => published(item)).map((item) => (
-          <li key={item} className="border border-line px-3 py-1 text-lg">
-            {isPlaceholder(item) ? <NeedsCopy /> : item}
-          </li>
-        ))}
-      </ul>
+      {project.stack.some((item) => published(item)) ? (
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {project.stack.filter((item) => published(item)).map((item) => (
+            <li key={item} className="border border-line px-3 py-1 text-lg">
+              {isPlaceholder(item) ? <NeedsCopy /> : item}
+            </li>
+          ))}
+        </ul>
+      ) : null}
       <div className="mt-auto flex flex-wrap gap-3 pt-8">
         <a href={`/work/${project.slug}/`} className={buttonVariants()}>
           Case note

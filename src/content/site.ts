@@ -91,10 +91,10 @@ export const brewstigeConfig = {
   showRealWorldImpact: false,
 };
 
-/** Recruiter-facing switches. Both stay off until Ryan confirms the copy. */
+/** Recruiter-facing switches. Personal stats stay off. Zeto is on. */
 export const reviewConfig = {
   showPersonalStats: false,
-  showBuiltZeto: false,
+  showBuiltZeto: true,
 };
 
 const brewstigeCafeClaims =
@@ -120,9 +120,12 @@ function hackAwardResult() {
   return "TODO(Ryan): Best Real World Impact, runner-up";
 }
 
+/**
+ * The hackathon name, any placing, and teammates are not confirmed.
+ * This award stays off the page. The project card is the public mention.
+ */
 function dublinAwardDetail() {
-  if (reviewConfig.showBuiltZeto) return "Built Zeto. October 2026. Private TypeScript repository.";
-  return "TODO(Ryan): Built Zeto, Dublin AI Week.";
+  return "";
 }
 
 function brewstigeContributionNote() {
@@ -293,14 +296,14 @@ export const site = {
     {
       slug: "zeto",
       name: "Zeto",
-      summary: "PLACEHOLDER: one sentence on what Zeto does.",
+      // PLACEHOLDER: one-line description. Not confirmed, so it stays off the page.
+      summary: "",
       contribution: null,
       contributionNote: null,
-      context:
-        "Notion × Dublin AI Week Student Hackathon, October 2026. Participant. Private TypeScript repository.",
-      stack: ["TypeScript"],
+      context: "Hackathon project",
+      stack: [],
       href: null,
-      year: "2026",
+      year: "",
       placeholder: false,
       screenshotNote: null,
     },
@@ -352,10 +355,11 @@ export const site = {
     },
     {
       id: "dublin",
-      event: "Notion × Dublin AI Week Student Hackathon",
-      result: "Participant",
+      // Hackathon name, placing, and teammates are unconfirmed. Not rendered.
+      event: "",
+      result: "",
       detail: dublinAwardDetail(),
-      when: "October 2026",
+      when: "",
     },
   ] satisfies Award[],
   skills: [
