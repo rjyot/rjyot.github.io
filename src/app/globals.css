@@ -47,6 +47,13 @@ h4 {
   outline-offset: 4px;
 }
 
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #b7d0ff;
+  outline-offset: 4px;
+}
+
 h1:focus:not(:focus-visible) {
   outline: none;
 }
@@ -247,93 +254,17 @@ html[data-motion="on"] .now-dot {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
 }
 
 .project-card {
   width: 100%;
 }
 
-@media (min-width: 1024px) {
-  .project-gallery {
-    display: flex;
-    height: 100svh;
-    flex-direction: column;
-  }
-
-  .project-viewport {
-    min-height: 0;
-    flex: 1;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
-  .project-track {
-    flex-direction: row;
-    align-items: center;
-    width: max-content;
-    height: 100%;
-    gap: 1.5rem;
-    padding-inline: 8vw 18vw;
-  }
-
-  .project-card {
-    width: min(76vw, 860px);
-  }
-
-  .project-gallery.is-pinned .project-viewport {
-    overflow: hidden;
-  }
-}
-
-@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
-  .project-gallery,
-  .project-viewport,
-  .project-track,
-  .project-card {
-    display: block;
-    width: auto;
-    height: auto;
-    overflow: visible;
-  }
-
-  .project-track {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-    padding-inline: 1.25rem;
-  }
-
-  .project-card {
-    width: 100%;
-  }
-
-  .project-progress {
-    display: none !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  html[data-motion="off"] .project-gallery,
-  html[data-motion="off"] .project-viewport {
-    display: block;
-    height: auto;
-    overflow: visible;
-  }
-
-  html[data-motion="off"] .project-track {
-    flex-direction: column;
-    width: auto;
-    height: auto;
-    padding-inline: 1.25rem;
-  }
-
-  html[data-motion="off"] .project-card {
-    width: 100%;
-  }
-
-  html[data-motion="off"] .project-progress {
-    display: none !important;
-  }
+.project-progress {
+  display: none;
 }
 
 ::view-transition {

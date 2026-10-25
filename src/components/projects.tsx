@@ -39,23 +39,8 @@ export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
       </div>
 
       <div className="project-gallery" data-gallery>
-        <div className="project-progress mx-auto mb-4 hidden w-full max-w-6xl items-center gap-4 px-5 md:px-10 lg:flex">
-          <span data-gallery-index className="font-display text-lg font-semibold text-amber">
-            01
-          </span>
-          <span className="text-lg text-muted">/ {String(projects.length).padStart(2, "0")}</span>
-          <div className="h-0.5 flex-1 bg-line" aria-hidden="true">
-            <div data-gallery-bar className="h-full origin-left bg-blue" style={{ transform: "scaleX(0)" }} />
-          </div>
-          <button type="button" data-gallery-step="-1" className={cn(buttonVariants({ variant: "outline" }), "h-11 px-4")}>
-            Prev
-          </button>
-          <button type="button" data-gallery-step="1" className={cn(buttonVariants({ variant: "outline" }), "h-11 px-4")}>
-            Next
-          </button>
-        </div>
-        <div className="project-viewport" data-gallery-viewport>
-          <div className="project-track px-5 md:px-10 lg:px-0">
+        <div className="project-viewport">
+          <div className="project-track px-5 md:px-10">
             {projects.map((project, index) => (
               <ProjectCard key={project.slug} project={project} index={index} />
             ))}

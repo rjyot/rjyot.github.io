@@ -11,9 +11,9 @@ import { published } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
 const statusClass: Record<PatternStatus, string> = {
-  learning: "border-blue bg-panel",
-  mastered: "border-amber bg-panel",
-  not_started: "border-line bg-ink",
+  learning: "border border-blue bg-panel",
+  mastered: "border border-amber bg-panel",
+  not_started: "border border-line bg-ink",
 };
 
 export async function Now({ heading = "h2" }: { heading?: "h1" | "h2" }) {
@@ -82,23 +82,38 @@ export async function Now({ heading = "h2" }: { heading?: "h1" | "h2" }) {
             <li className="border border-amber px-3 py-1">Mastered</li>
             <li className="border border-line px-3 py-1 text-muted">Not started</li>
           </ul>
-          <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {leetcode.patterns.map((pattern) => (
-              <li
-                key={pattern.number}
-                className={cn("border-l-4 px-4 py-4", statusClass[pattern.status])}
-              >
-                <p className="text-lg font-semibold text-amber">
-                  {String(pattern.number).padStart(2, "0")}
-                </p>
-                <p className="mt-1 text-lg leading-snug text-paper">{pattern.name}</p>
-                <p className="mt-2 text-lg text-muted">{patternStatusLabel[pattern.status]}</p>
-              </li>
-            ))}
+          <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {leetcode.patterns
+              .filter((pattern) => pattern.status !== "not_started")
+              .map((pattern) => (
+                <PatternRow key={pattern.number} pattern={pattern} />
+              ))}
           </ul>
+          <details className="mt-4 border border-line">
+            <summary className="cursor-pointer px-4 py-4 text-lg">
+              {leetcode.patterns.filter((pattern) => pattern.status === "not_started").length} patterns not started
+            </summary>
+            <ul className="grid grid-cols-1 gap-3 px-4 pt-2 pb-4 sm:grid-cols-2">
+              {leetcode.patterns
+                .filter((pattern) => pattern.status === "not_started")
+                .map((pattern) => (
+                  <PatternRow key={pattern.number} pattern={pattern} />
+                ))}
+            </ul>
+          </details>
         </div>
       </div>
     </section>
+  );
+}
+
+function PatternRow({ pattern }: { pattern: (typeof learning.leetcode.patterns)[number] }) {
+  return (
+    <li className={cn("px-4 py-4", statusClass[pattern.status])}>
+      <p className="text-lg font-semibold text-amber">{String(pattern.number).padStart(2, "0")}</p>
+      <p className="mt-1 text-lg leading-snug text-paper">{pattern.name}</p>
+      <p className="mt-2 text-lg text-muted">{patternStatusLabel[pattern.status]}</p>
+    </li>
   );
 }
 

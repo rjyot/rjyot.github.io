@@ -431,12 +431,12 @@ export const site = {
 export const githubStreak: { days: number; asOf: string } | null = null;
 
 export const nav = [
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
-  { id: "now", label: "Now" },
-  { id: "contact", label: "Contact" },
+  { id: "about", label: "About", index: "02" },
+  { id: "experience", label: "Experience", index: "03" },
+  { id: "projects", label: "Projects", index: "04" },
+  { id: "skills", label: "Skills", index: "05" },
+  { id: "now", label: "Now", index: "06" },
+  { id: "contact", label: "Contact", index: "07" },
 ] as const;
 
 export function getProject(slug: string): Project | undefined {

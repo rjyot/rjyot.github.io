@@ -3,13 +3,13 @@ import { nav, site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 const linkClass =
-  "text-lg text-paper underline-offset-4 hover:underline aria-[current=true]:text-blue-bright aria-[current=true]:underline aria-[current=true]:decoration-2";
+  "inline-flex h-11 items-center text-lg text-paper underline-offset-4 hover:underline aria-[current=true]:text-blue-bright aria-[current=true]:underline aria-[current=true]:decoration-2";
 
 export function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-ink" style={{ viewTransitionName: "site-header" }}>
       <div className="flex h-16 items-center justify-between gap-4 px-5 md:px-10">
-        <a href="/#content" className="font-display text-xl font-extrabold tracking-tight">
+        <a href="/#content" className="inline-flex h-11 items-center font-display text-xl font-extrabold tracking-tight">
           RJ
         </a>
 
@@ -50,14 +50,14 @@ export function Nav() {
                 Jump to a section. {site.availability}.
               </p>
               <nav className="mt-8 flex flex-col" aria-label="Sections">
-                {nav.map((item, index) => (
+                {nav.map((item) => (
                   <a
                     key={item.id}
                     href={`/#${item.id}`}
                     data-section-link={item.id}
                     className="flex items-baseline gap-4 border-b border-line py-4 font-display text-4xl font-extrabold text-paper"
                   >
-                    <span className="text-lg font-semibold text-amber">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="text-lg font-semibold text-amber">{item.index}</span>
                     {item.label}
                   </a>
                 ))}

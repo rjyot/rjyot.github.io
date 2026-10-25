@@ -31,10 +31,10 @@ export function Hero() {
         ) : null}
         <p className="mt-3 max-w-xl text-lg text-paper">{site.availability}.</p>
         <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-lg">
-          <a href="/cv/" className="font-semibold text-blue-bright underline underline-offset-4">
+          <a href="/cv/" className="inline-flex min-h-11 items-center font-semibold text-blue-bright underline underline-offset-4">
             CV
           </a>
-          <a href={site.github} className="font-semibold text-blue-bright underline underline-offset-4">
+          <a href={site.github} className="inline-flex min-h-11 items-center font-semibold text-blue-bright underline underline-offset-4">
             GitHub
           </a>
           {site.email ? (

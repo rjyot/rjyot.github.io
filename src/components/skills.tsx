@@ -9,17 +9,17 @@ export function Skills() {
         <SectionHeading
           index="05"
           title="Skills"
-          lede="The stack named on the public GitHub profile, and his part of Brewstige. No guessed ratings."
+          lede="The stack named on the public GitHub profile, and my part of Brewstige. No guessed ratings."
         />
         <div className="space-y-10">
           {site.skills.map((group) => (
             <Reveal key={group.id}>
               <h3 className="text-lg font-semibold text-blue-bright">{group.label}</h3>
-              <ul className="mt-3 grid grid-cols-1 gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+              <ul className="mt-3 flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="bg-ink px-4 py-5 font-display text-2xl font-semibold tracking-tight transition-colors duration-200 hover:bg-blue hover:text-ink md:text-3xl"
+                    className="border border-line bg-ink px-4 py-4 font-display text-2xl font-semibold tracking-tight transition-colors duration-200 hover:border-blue hover:bg-blue hover:text-ink md:text-3xl"
                   >
                     {item}
                   </li>

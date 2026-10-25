@@ -72,34 +72,27 @@
     }
   });
 
-  var sections = ["about", "projects", "experience", "skills", "now", "contact"];
-  if ("IntersectionObserver" in window) {
-    var links = Array.prototype.slice.call(document.querySelectorAll("[data-section-link]"));
-    var spy = new IntersectionObserver(
-      function (entries) {
-        var visible = entries
-          .filter(function (entry) {
-            return entry.isIntersecting;
-          })
-          .sort(function (a, b) {
-            return b.intersectionRatio - a.intersectionRatio;
-          })[0];
-        if (!visible) return;
-        links.forEach(function (link) {
-          if (link.getAttribute("data-section-link") === visible.target.id) {
-            link.setAttribute("aria-current", "true");
-          } else {
-            link.removeAttribute("aria-current");
-          }
-        });
-      },
-      { rootMargin: "-35% 0px -45% 0px", threshold: [0.1, 0.3, 0.6] },
-    );
+  var sections = ["about", "experience", "projects", "skills", "now", "contact"];
+  var sectionLinks = Array.prototype.slice.call(document.querySelectorAll("[data-section-link]"));
+  function markSection() {
+    var line = window.scrollY + 96;
+    var current = "";
     sections.forEach(function (id) {
       var node = document.getElementById(id);
-      if (node) spy.observe(node);
+      if (!node) return;
+      var top = node.getBoundingClientRect().top + window.scrollY;
+      if (top <= line) current = id;
+    });
+    sectionLinks.forEach(function (link) {
+      if (current && link.getAttribute("data-section-link") === current) {
+        link.setAttribute("aria-current", "true");
+      } else {
+        link.removeAttribute("aria-current");
+      }
     });
   }
+  window.addEventListener("scroll", markSection, { passive: true });
+  markSection();
 
   var cursorFrame = 0;
   var cursorReady = false;
@@ -378,8 +371,8 @@
 
   function moveFocus() {
     var hash = window.location.hash;
-    var target = hash ? document.getElementById(hash.slice(1)) : null;
-    if (!target) target = document.querySelector("h1");
+    if (!hash) return;
+    var target = document.getElementById(hash.slice(1));
     if (!target) return;
     if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
     target.focus({ preventScroll: true, focusVisible: false });
