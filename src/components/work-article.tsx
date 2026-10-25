@@ -20,6 +20,7 @@ export function WorkArticle({ project }: { project: Project }) {
         <div className="mt-3">
           <ProjectTitle project={project} as="h1" />
         </div>
+        {project.held ? <p className="mt-4 text-lg text-muted">{project.held}</p> : null}
         {isDev && project.screenshotNote ? (
           <div className="mt-8">
             <ScreenshotFrame note={project.screenshotNote} shape="phone" />

@@ -31,6 +31,8 @@ export type Project = {
   year: string;
   /** Short label above the description, such as the hackathon name. */
   label?: string;
+  /** Date and place for the case note only. Not a claim about when the work was built. */
+  held?: string;
   /** Case-note bullets. Plain words. */
   points?: string[];
   /** True when the card is an open slot, not a shipped project. */
@@ -300,7 +302,8 @@ export const site = {
     {
       slug: "zeto",
       name: "Zeto",
-      label: "Notion x TU Dublin hackathon",
+      label: "Notion Loves Dublin × Dublin AI Week Student Hackathon, TU Dublin",
+      held: "9 Oct 2026, TU Dublin, Grangegorman.",
       summary:
         "An internship tracker and application workspace for students and graduates across the UK and Ireland.",
       contribution: null,
