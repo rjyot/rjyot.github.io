@@ -191,9 +191,10 @@
     host.appendChild(canvas);
     var gl = canvas.getContext("webgl", { alpha: true, antialias: false, powerPreference: "high-performance" });
     if (!gl) return;
+    paintMotion();
 
     var vert =
-      "attribute vec3 aPos;attribute float aScale;attribute float aAccent;uniform float uTime;uniform vec2 uMouse;uniform vec2 uRes;varying float vAccent;void main(){vec3 pos=aPos;float dist=distance(pos.xy,uMouse);float fall=smoothstep(1.85,0.0,dist);vec2 dir=normalize(pos.xy-uMouse+vec2(0.0001));pos.xy+=dir*fall*0.48;pos.z+=sin(uTime*0.35+aPos.y*2.2)*0.045+fall*0.32;vec4 mv=vec4(pos,1.0);gl_Position=vec4(pos.xy*0.42,pos.z*0.08,1.0);float size=1.6+aScale*1.4+fall*2.2;gl_PointSize=clamp(size*(uRes.y/700.0),1.0,6.5);vAccent=aAccent;}";
+      "attribute vec3 aPos;attribute float aScale;attribute float aAccent;uniform float uTime;uniform vec2 uMouse;uniform vec2 uRes;uniform float uInfluence;varying float vAccent;void main(){float ang=uTime*0.05;float c=cos(ang);float s=sin(ang);vec3 pos=vec3(aPos.x*c-aPos.z*s,aPos.y,aPos.x*s+aPos.z*c);float dist=distance(pos.xy,uMouse);float fall=smoothstep(1.05,0.0,dist)*uInfluence;vec2 dir=normalize(pos.xy-uMouse+vec2(0.0001));pos.xy+=dir*fall*0.72;pos.z+=sin(uTime*0.35+aPos.y*2.2)*0.04+fall*0.35;gl_Position=vec4(pos.xy*0.42,pos.z*0.08,1.0);float size=1.6+aScale*1.4+fall*3.2;gl_PointSize=clamp(size*(uRes.y/700.0),1.0,8.0);vAccent=aAccent;}";
     var frag =
       "precision mediump float;varying float vAccent;void main(){vec2 uv=gl_PointCoord-vec2(0.5);float d=length(uv);float circle=smoothstep(0.5,0.16,d);if(circle<0.02)discard;vec3 color=mix(vec3(0.48,0.68,1.0),vec3(0.94,0.71,0.42),vAccent);gl_FragColor=vec4(color,circle);}" ;
 
@@ -241,12 +242,19 @@
     var uTime = gl.getUniformLocation(program, "uTime");
     var uMouse = gl.getUniformLocation(program, "uMouse");
     var uRes = gl.getUniformLocation(program, "uRes");
+    var uInfluence = gl.getUniformLocation(program, "uInfluence");
     var mouse = [0, 0];
     var current = [0, 0];
+    var influence = 0;
+    var influenceTarget = 0;
     var onScreen = true;
     var pageVisible = !document.hidden;
     var frame = 0;
     var start = performance.now();
+    var shellX = 2.35;
+    var shellY = 2.35 * 0.78;
+    var project = 0.42;
+    var rimFalloff = 0.12;
 
     function resize() {
       var rect = host.getBoundingClientRect();
@@ -257,17 +265,45 @@
       gl.viewport(0, 0, width, height);
     }
     resize();
+    function coarseOnly() {
+      return (
+        window.matchMedia("(pointer: coarse)").matches &&
+        !window.matchMedia("(any-pointer: fine)").matches
+      );
+    }
+    function placePointer(event) {
+      if (event.pointerType === "touch" || coarseOnly()) {
+        influenceTarget = 0;
+        return;
+      }
+      var rect = canvas.getBoundingClientRect();
+      if (rect.width < 1 || rect.height < 1) {
+        influenceTarget = 0;
+        return;
+      }
+      var nx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      var ny = -(((event.clientY - rect.top) / rect.height) * 2 - 1);
+      var px = nx / project;
+      var py = ny / project;
+      var ellipse = Math.sqrt((px / shellX) * (px / shellX) + (py / shellY) * (py / shellY));
+      var edge = 1 + rimFalloff;
+      if (ellipse >= edge) {
+        influenceTarget = 0;
+        return;
+      }
+      mouse[0] = px;
+      mouse[1] = py;
+      influenceTarget = ellipse <= 1 ? 1 : (edge - ellipse) / rimFalloff;
+    }
+    function releasePointer() {
+      influenceTarget = 0;
+    }
     window.addEventListener("resize", resize);
-    window.addEventListener(
-      "pointermove",
-      function (event) {
-        mouse[0] = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse[1] = -((event.clientY / window.innerHeight) * 2 - 1);
-      },
-      { passive: true },
-    );
+    window.addEventListener("pointermove", placePointer, { passive: true });
+    window.addEventListener("pointerleave", releasePointer);
+    window.addEventListener("pointercancel", releasePointer);
     function drawing() {
-      return onScreen && pageVisible && root.dataset.motion === "on";
+      return onScreen && pageVisible && motionOn();
     }
     function startDraw() {
       if (frame || !drawing()) return;
@@ -292,10 +328,12 @@
         return;
       }
       frame = window.requestAnimationFrame(draw);
-      current[0] += (mouse[0] - current[0]) * 0.08;
-      current[1] += (mouse[1] - current[1]) * 0.08;
+      current[0] += (mouse[0] - current[0]) * 0.16;
+      current[1] += (mouse[1] - current[1]) * 0.16;
+      influence += (influenceTarget - influence) * 0.14;
       gl.uniform1f(uTime, (now - start) / 1000);
-      gl.uniform2f(uMouse, current[0] * 1.7, current[1] * 1.15);
+      gl.uniform2f(uMouse, current[0], current[1]);
+      gl.uniform1f(uInfluence, influence);
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
@@ -305,6 +343,10 @@
     fieldStop = function () {
       window.cancelAnimationFrame(frame);
       watcher.disconnect();
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", placePointer);
+      window.removeEventListener("pointerleave", releasePointer);
+      window.removeEventListener("pointercancel", releasePointer);
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
       fieldStop = function () {};
     };
@@ -329,6 +371,7 @@
 
   paintMotion();
   afterLoad(function () {
+    paintMotion();
     if (motionOn()) setupCursor();
   });
   if (motionOn()) scheduleField();

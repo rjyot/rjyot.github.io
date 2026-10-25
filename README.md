@@ -24,6 +24,16 @@ npm run build
 
 The GitHub heatmap is fetched at build time from the public contribution API and written into the page and `/api/github-contributions.json`. No token is used. If that fetch fails, the card falls back to a link. Pinned repositories are not shown. The chest-press goal stays out of the build until `showChestPressGoal` in `src/content/fitness.ts` is set to true and `ChestPressGoal` is rendered. Pattern statuses are saved to `status-history/` on each build. "Patterns moved up this week" stays hidden until a week of those snapshots exists. The Brewstige café-owner count, letter of interest, and paying client stay hidden until `showCafeClaims` in `src/content/site.ts` is set to true.
 
+## Change your CV
+
+There is no CV PDF in `public/` or `assets/`, and no PDF is linked. The CV is the printable page `src/app/cv/page.tsx`, served at `/cv/`. The hero "CV" link in `src/components/hero.tsx` points at `/cv/`. `cvHref` in `src/content/site.ts` is `null`. Leave it that way until Ryan picks which CV is public.
+
+To change the page, edit `src/app/cv/page.tsx`, keep the route at `/cv/`, and rebuild:
+
+```bash
+npm run build
+```
+
 ## Edit the copy
 
 All public copy is in [`src/content/site.ts`](src/content/site.ts).
