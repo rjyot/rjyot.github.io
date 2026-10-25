@@ -14,8 +14,8 @@ export function WorkArticle({ project }: { project: Project }) {
         <a href="/#projects" className="text-lg text-blue-bright underline underline-offset-4">
           Back to projects
         </a>
-        <p className="mt-8 text-lg font-semibold text-amber">
-          {project.placeholder ? "Open slot" : "Project"}
+        <p className={`mt-8 text-lg font-semibold ${project.label ? "text-blue-bright" : "text-amber"}`}>
+          {project.label ?? (project.placeholder ? "Open slot" : "Project")}
         </p>
         <div className="mt-3">
           <ProjectTitle project={project} as="h1" />
@@ -35,6 +35,13 @@ export function WorkArticle({ project }: { project: Project }) {
           value={project.summary}
           className={project.contribution ? "mt-4 max-w-[38rem]" : "mt-8 max-w-[38rem]"}
         />
+        {project.points && project.points.length > 0 ? (
+          <ul className="mt-6 max-w-[38rem] list-disc space-y-2 pl-5 text-lg marker:text-blue-bright">
+            {project.points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        ) : null}
         <Paragraph value={project.context} className="mt-4 max-w-[38rem] text-muted" />
         {published(project.year) ? (
           <p className="mt-6 text-lg">

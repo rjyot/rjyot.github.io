@@ -29,6 +29,10 @@ export type Project = {
   contributionNote: string | null;
   href: string | null;
   year: string;
+  /** Short label above the description, such as the hackathon name. */
+  label?: string;
+  /** Case-note bullets. Plain words. */
+  points?: string[];
   /** True when the card is an open slot, not a shipped project. */
   placeholder: boolean;
   /** Set only when a real app screenshot is still missing. */
@@ -296,12 +300,19 @@ export const site = {
     {
       slug: "zeto",
       name: "Zeto",
-      // PLACEHOLDER: one-line description. Not confirmed, so it stays off the page.
-      summary: "",
+      label: "Notion x TU Dublin hackathon",
+      summary:
+        "An internship tracker and application workspace for students and graduates across the UK and Ireland.",
       contribution: null,
       contributionNote: null,
-      context: "Hackathon project",
-      stack: [],
+      context: "",
+      points: [
+        "Move an application through Prep, Applied, Assessment, Interview, and Offer.",
+        "Keep a checklist on each application.",
+        "Compare offers and see deadlines on a calendar.",
+        "Sync both ways with Notion.",
+      ],
+      stack: ["TanStack Start", "React 19", "TypeScript", "Tailwind CSS v4", "Notion API"],
       href: null,
       year: "",
       placeholder: false,

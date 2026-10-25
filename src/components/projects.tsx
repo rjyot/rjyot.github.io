@@ -92,7 +92,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <ScreenshotFrame note={project.screenshotNote} />
         </div>
       ) : null}
-      <Paragraph value={project.summary} className="mt-6 max-w-[32rem]" />
+      {project.label ? (
+        <p className="mt-6 text-lg font-semibold text-blue-bright">{project.label}</p>
+      ) : null}
+      <Paragraph value={project.summary} className={project.label ? "mt-3 max-w-[32rem]" : "mt-6 max-w-[32rem]"} />
       <Paragraph value={project.context} className="mt-3 max-w-[32rem] text-muted" />
       {project.stack.some((item) => published(item)) ? (
         <ul className="mt-6 flex flex-wrap gap-2">
