@@ -36,6 +36,7 @@ export function WorkArticle({ project }: { project: Project }) {
           value={project.summary}
           className={project.contribution ? "mt-4 max-w-[38rem]" : "mt-8 max-w-[38rem]"}
         />
+        <Paragraph value={project.context} className="mt-4 max-w-[38rem] text-muted" />
         {project.points && project.points.length > 0 ? (
           <ul className="mt-6 max-w-[38rem] list-disc space-y-2 pl-5 text-lg marker:text-blue-bright">
             {project.points.map((point) => (
@@ -43,7 +44,6 @@ export function WorkArticle({ project }: { project: Project }) {
             ))}
           </ul>
         ) : null}
-        <Paragraph value={project.context} className="mt-4 max-w-[38rem] text-muted" />
         {published(project.year) ? (
           <p className="mt-6 text-lg">
             <span className="text-muted">Year. </span>

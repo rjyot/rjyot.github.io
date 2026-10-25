@@ -31,7 +31,7 @@ export type Project = {
   year: string;
   /** Short label above the description, such as the hackathon name. */
   label?: string;
-  /** Date and place for the case note only. Not a claim about when the work was built. */
+  /** Date and place for the case note only. The card does not repeat it. */
   held?: string;
   /** Case-note bullets. Plain words. */
   points?: string[];
@@ -127,8 +127,8 @@ function hackAwardResult() {
 }
 
 /**
- * The hackathon name, any placing, and teammates are not confirmed.
- * This award stays off the page. The project card is the public mention.
+ * Zeto did not place. No award card, no placing, and no teammates.
+ * The project card is the public mention.
  */
 function dublinAwardDetail() {
   return "";
@@ -308,7 +308,7 @@ export const site = {
         "An internship tracker and application workspace for students and graduates across the UK and Ireland.",
       contribution: null,
       contributionNote: null,
-      context: "",
+      context: "Built at the hackathon. Being developed further.",
       points: [
         "Move an application through Prep, Applied, Assessment, Interview, and Offer.",
         "Keep a checklist on each application.",
@@ -369,7 +369,7 @@ export const site = {
     },
     {
       id: "dublin",
-      // Hackathon name, placing, and teammates are unconfirmed. Not rendered.
+      // Did not place. No award line on the page.
       event: "",
       result: "",
       detail: dublinAwardDetail(),
