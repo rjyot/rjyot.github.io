@@ -13,6 +13,8 @@ npm run dev
 
 Open [http://localhost:4317](http://localhost:4317).
 
+`npm run build` also needs Python 3 with Pillow and the `tesseract` binary on PATH (CI installs `python3-pil` and `tesseract-ocr`).
+
 ```bash
 npm run lint
 npm run build
