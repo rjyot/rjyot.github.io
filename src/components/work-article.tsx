@@ -61,7 +61,7 @@ export function WorkArticle({ project }: { project: Project }) {
         ) : null}
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <p className="text-lg text-muted">
-            {href ? "External link." : "Private repository. This page does not link to code."}
+            {href ? "External link." : "The source code is private."}
           </p>
           {href ? (
             <a href={href} className={buttonVariants({ size: "lg", variant: "outline" })} rel="noreferrer">

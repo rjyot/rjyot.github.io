@@ -9,7 +9,7 @@ export function Skills() {
         <SectionHeading
           index="05"
           title="Skills"
-          lede="The stack named on the public GitHub profile, and my part of Brewstige. No guessed ratings."
+          lede="The tools I build with."
         />
         <div className="space-y-10">
           {site.skills.map((group) => (

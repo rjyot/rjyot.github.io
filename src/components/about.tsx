@@ -39,7 +39,7 @@ export function About({ heading = "h2" }: { heading?: "h1" | "h2" }) {
 
       <div className="mx-auto mt-14 max-w-6xl">
         <p className="max-w-[38rem] text-lg text-muted">
-          Photographs of Belfast. These are not pictures of Ryan, and they are not the app.
+          Belfast, where I study.
         </p>
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           {belfastPhotos.map((photo) => (
