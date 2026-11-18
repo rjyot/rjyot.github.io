@@ -28,7 +28,7 @@ export async function Now({ heading = "h2" }: { heading?: "h1" | "h2" }) {
         <SectionHeading
           index="06"
           title="Now"
-          lede="LeetCode patterns, Levantine Arabic, the gym, and a GitHub goal through 31 Dec 2026."
+          lede="What I'm working on outside of projects: algorithms, Arabic, the gym, and a daily GitHub habit."
           as={heading}
         />
         <p className="-mt-4 mb-8 text-lg text-muted">{site.updatedLabel}.</p>

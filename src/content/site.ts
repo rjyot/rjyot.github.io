@@ -106,17 +106,26 @@ export const reviewConfig = {
 const brewstigeCafeClaims =
   "During the same 36 hours I talked to 13 Belfast café owners and came away with a letter of interest and a paying client.";
 
-const brewstigeWork =
-  "Since then I've worked on getting the mobile app release-ready. My part is the Supabase least-privilege hardening, Apple sign-in, and the Android camera fix: I tightened Supabase permissions to least privilege, hid Apple sign-in until it's set up, and fixed the Android camera permission so QR scanning works (KAN-23). I brought the app onto its Expo SDK 57 baseline with a single required CI check, and got expo-doctor passing. I also removed the old web MVP, stopped featured stickers leaking between accounts on a shared phone, and wrote the café go-live content standard.";
+const brewstigeWork = "Since then, I've been getting the app ready for release.";
+
+/** Case-note bullets: what I did after the hackathon. */
+const brewstigePoints = [
+  "Locked Supabase down to least-privilege access.",
+  "Fixed the Android camera permission so QR scanning works.",
+  "Moved the app to Expo SDK 57 with a required CI check.",
+  "Hid Apple sign-in until it's fully set up.",
+  "Stopped featured stickers leaking between accounts on a shared phone.",
+  "Removed the old web MVP and wrote the content standard cafés follow to go live.",
+];
 
 function brewstigeContribution() {
-  const lead = "I co-founded Brewstige and led the frontend at HackBelfast 2026.";
+  const lead = "I co-founded Brewstige and led the frontend at Hack Belfast 2026.";
   if (!brewstigeConfig.showCafeClaims) return `${lead} ${brewstigeWork}`;
   return `${lead} ${brewstigeCafeClaims} ${brewstigeWork}`;
 }
 
 function brewstigeContext() {
-  const base = "With two collaborators. Hack Belfast, a 36-hour hackathon.";
+  const base = "Built with two collaborators in 36 hours at Hack Belfast.";
   if (!brewstigeConfig.showRealWorldImpact) return base;
   return `${base} Runner-up for Best Real World Impact.`;
 }
@@ -212,7 +221,7 @@ export const site = {
   about: [
     "The space between an idea and a usable product is where I like to work.",
     "I'm Ryan, a Software Engineering student at Queen's University Belfast.",
-    "I co-founded Brewstige and led the frontend, a loyalty app for small cafés that points you to quieter ones.",
+    "I co-founded Brewstige, a loyalty app for small cafés that points you to quieter ones, and led its frontend.",
     fitnessConfig.showFootball
       ? "Outside code, I lift, play football, and learn Arabic."
       : "Outside code, I lift and learn Arabic.",
@@ -293,6 +302,7 @@ export const site = {
       contribution: brewstigeContribution(),
       contributionNote: brewstigeContributionNote(),
       context: brewstigeContext(),
+      points: brewstigePoints,
       stack: ["Expo", "React Native"],
       href: null,
       year: "PLACEHOLDER: year",
@@ -397,7 +407,7 @@ export const site = {
       id: "github-goal",
       title: "GitHub",
       status: "A contribution every day until 31 Dec 2026.",
-      detail: "A goal, not a streak count.",
+      detail: "Small, steady progress.",
     },
   ] satisfies NowItem[],
   contact: [

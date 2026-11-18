@@ -3,7 +3,7 @@ import { ScreenshotFrame } from "@/components/screenshot-frame";
 import { SectionHeading } from "@/components/section-heading";
 import { NeedsCopy, Paragraph, TextValue } from "@/components/text-value";
 import { buttonVariants } from "@/components/ui/button-styles";
-import { isPlaceholder, isPublicProject, reviewConfig, site, type Project } from "@/content/site";
+import { isPlaceholder, isPublicProject, site, type Project } from "@/content/site";
 import { isDev, published } from "@/lib/publish";
 import { cn } from "@/lib/utils";
 
@@ -15,13 +15,7 @@ export function Projects({ heading = "h2" }: { heading?: "h1" | "h2" }) {
         <SectionHeading
           index="04"
           title="Projects"
-          lede={
-            isDev
-              ? "Brewstige and Zeto are the projects on record. The third card is an open slot."
-              : reviewConfig.showBuiltZeto
-                ? "Brewstige and Zeto are the projects on record."
-                : "Brewstige is the project on record."
-          }
+          lede="Things I've built, mostly at hackathons, then kept building."
           as={heading}
         />
         <ul className="mb-8 flex flex-wrap gap-x-6 gap-y-2">
@@ -95,7 +89,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <a href={`/work/${project.slug}/`} className={buttonVariants()}>
           Case note
         </a>
-        <p className="self-center text-lg text-muted">Private repository.</p>
       </div>
     </article>
   );
